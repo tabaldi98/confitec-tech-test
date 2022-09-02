@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+    front:
+        build: ./client/
+        container_name: confitec-technical-test-client
+        ports:
+            - '9000:80'
+        depends_on:
+            - web
+    web:
+        build: ./src/
+        container_name: confitec-technical-test-back
+        ports:
+            - "8081:80"
+        depends_on:
+            - mssql
+    mssql:
+        image: "mcr.microsoft.com/mssql/server"
+        container_name: confitec-technical-test-client-sql
+        hostname: mssql
+        environment:
+            SA_PASSWORD: "testes@123"
+            ACCEPT_EULA: "Y"
+        restart: unless-stopped    
+        ports:
+            - "11433:1433" 
