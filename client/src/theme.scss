@@ -3,4 +3,9 @@
 
 $candy-app-primary: mat-palette($mat-indigo);
 
-$candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+
+.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle {
+    animation-duration: 4000ms !important;
+    animation-iteration-count: infinite !important;
+}

@@ -1,0 +1,64 @@
+<app-header-back title="Editar usuário"></app-header-back>
+
+<form *ngIf="form" [formGroup]="form" class="form">
+
+    <table class="table" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="table">
+                    <mat-label>Nome</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-error *ngIf="form.get('name')?.hasError('required')">
+                        Nome não pode ser vazio
+                    </mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="table">
+                    <mat-label>Sobrenome</mat-label>
+                    <input matInput formControlName="surname">
+                    <mat-error *ngIf="form.get('surname')?.hasError('required')">
+                        Sobrenome não pode ser vazio
+                    </mat-error>
+                </mat-form-field>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <mat-form-field class="table">
+                    <mat-label>Data de nascimento</mat-label>
+                    <input matInput [matDatepicker]="dp3" [max]="maxDate" formControlName="birthDate" [disabled]="true">
+                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                    <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="table">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="mail">
+                    <mat-error *ngIf="form.get('mail')?.hasError('email') && !form.get('mail')?.hasError('required')">
+                        Email digitado está incorreto
+                    </mat-error>
+                    <mat-error *ngIf="form.get('mail')?.hasError('required')">
+                        Email não pode ser vazio
+                    </mat-error>
+                </mat-form-field>
+            </td>
+        </tr>
+
+        <tr>
+            <mat-form-field class="table">
+                <mat-label>Escolaridade</mat-label>
+                <mat-select formControlName="scholarity">
+                    <div *ngFor="let scholarity of scholarities | keyvalue; let idx = index">
+                        <mat-option [value]="scholarity.value">{{ formatScholarity(scholarity.value) }}</mat-option>
+                    </div>
+                </mat-select>
+            </mat-form-field>
+        </tr>
+    </table>
+
+    <app-save-buttons [form]="form" (onSaveClick)="onSave()">
+    </app-save-buttons>
+</form>

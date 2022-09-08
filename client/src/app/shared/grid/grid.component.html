@@ -1,0 +1,101 @@
+<div class="container">
+    <table class="table table--header" cellspacing="0">
+        <tr>
+            <td width="50%">
+                <mat-form-field class="filter" appearance="standard">
+                    <input matInput (keyup)="applyFilter($event)" #input placeholder="Filtro">
+                </mat-form-field>
+            </td>
+            <td width="50%">
+                <button matTooltip="{{action?.title}}" *ngFor="let action of config?.actions" class="action-button" mat-button color="primary"
+                    (click)="action.callback()">
+                    <mat-icon>{{action?.icon}}</mat-icon>{{action?.title}}
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="table table-content">
+        <table class="table" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+            <!-- Check -->
+            <ng-container matColumnDef="check">
+                <th mat-header-cell *matHeaderCellDef width="5%">
+                    <mat-checkbox matTooltip="{{allChecked ? 'Desmarcar': 'Marcar'}} todos itens" class="example-margin"
+                        color="primary" (change)="setAll($event.checked)"></mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-checkbox matTooltip="{{element.checked ? 'Desmarcar': 'Marcar' }} item" class="example-margin"
+                        color="primary" [checked]="element.checked" (change)="setItem(element)"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <span *ngFor="let column of config?.columns">
+                <span [ngSwitch]="column.type">
+
+                    <!--LinkButton -->
+                    <ng-container *ngSwitchCase="0" [matColumnDef]="column.field">
+                        <!-- <th mat-header-cell *matHeaderCellDef [width]="column.size" mat-sort-header> -->
+                        <th [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-header-cell *matHeaderCellDef mat-sort-header [width]="column.size">
+                            <strong style="width: 100%;" >{{column.title}}</strong>
+                        </th>
+                        <td [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" matTooltip="Editar {{column.cell(element)}}" class="td-content" mat-cell *matCellDef="let element">
+                            <button class="button-link" mat-icon-button (click)="onCallbackAction(column, element)"
+                                color="primary">
+                                {{column.cell(element)}}
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <!--Text -->
+                    <ng-container *ngSwitchCase="1" [matColumnDef]="column.field">
+                        <th [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-header-cell *matHeaderCellDef mat-sort-header [width]="column.size">
+                            <strong style="width: 100%;" >{{column.title}}</strong>
+                        </th>
+                        <td [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" [matTooltip]="column.cell(element)" class="td-content" mat-cell *matCellDef="let element">{{column.cell(element)}}</td>
+                    </ng-container>
+
+                    <!--Date -->
+                    <ng-container *ngSwitchCase="2" [matColumnDef]="column.field">
+                        <th [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-header-cell *matHeaderCellDef mat-sort-header [width]="column.size">
+                            <strong style="width: 100%;" >{{column.title}}</strong>
+                        </th>
+                        <td [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" class="td-content" mat-cell *matCellDef="let element">{{column.cell(element) | date:'shortDate'}}</td>
+                    </ng-container>
+
+                    <!--Enum -->
+                    <ng-container *ngSwitchCase="3" [matColumnDef]="column.field">
+                        <th [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-header-cell *matHeaderCellDef mat-sort-header [width]="column.size">
+                            <strong style="width: 100%;" >{{column.title}}</strong>
+                        </th>
+                        <td [matTooltip]="column.customFormat(element)" class="td-content" [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-cell *matCellDef="let element">
+                            {{column.customFormat(element)}}</td>
+                    </ng-container>
+
+                    <!--Action -->
+                    <ng-container *ngSwitchCase="4" [matColumnDef]="column.field">
+                        <th [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-header-cell *matHeaderCellDef [width]="column.size"></th>
+                        <td [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-cell *matCellDef="let element">
+                            <button [matTooltip]="column.title" mat-icon-button
+                                (click)="onCallbackAction(column, element)" color="primary">
+                                <mat-icon>{{column?.iconAction}}</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+                </span>
+            </span>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Nenhum registro encontrado!"</td>
+            </tr>
+        </table>
+
+        <mat-paginator class="paginator" [pageSizeOptions]="[100, 50, 5]" aria-label="Select page of users"
+            (page)="onPageEvent($event)" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+
+</div>

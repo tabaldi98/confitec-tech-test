@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from 'src/app/models/User';
+import { User } from 'src/app/features/user/shared/user.model';
 
 @Component({
   selector: 'app-confirm-delete',

@@ -1,4 +1,6 @@
-﻿namespace Confitec.Technical.Test.Api.Extensions
+﻿using Serilog;
+
+namespace Confitec.Technical.Test.Api.Extensions
 {
     public static class HealthCheckExtension
     {

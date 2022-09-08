@@ -1,2 +1,34 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media (max-width: 767px) {
+    .hide-on-mobile {
+        visibility: hidden;
+        display: none;
+    } 
+    .td-content {
+
+    }
+}
+
+.spinner-centered {
+    position: fixed !important;
+    top: 50%;
+    left: 50%;
+}
+
+.mat-sort-header-content {
+  width: 100%;
+  text-align: center !important;
+}
+
+.form {
+    padding: 10px 30px 30px 65px;
+}

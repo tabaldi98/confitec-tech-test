@@ -10,5 +10,6 @@ namespace Confitec.Technical.Test.Domain.UserModule
         Task<User?> GetAsync(ISpecification<User> specification, bool tracking = false);
         Task<bool> AnyAsync(ISpecification<User> specification);
         Task<bool> DeleteAsync(User user);
+        Task<bool> DeleteManyAsync(int[] ids);
     }
 }

@@ -1,0 +1,33 @@
+.buttons {
+    float: right;
+    margin-right: 30px;
+    border: 1px solid #3f51b5;
+}
+
+.primary-button {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.secundary-button {
+    background-color: white;
+    color: #3f51b5;
+}
+
+.cancel-button {
+    background-color: white;
+    color: black;
+}
+
+.actions {
+    border: 1px;
+    bottom: 40px;
+    left: 0;
+    height: 30px;
+    position: fixed;
+    width: 100%;
+}
+
+.divider {
+    padding: 10px 0px 0px 0px;
+}

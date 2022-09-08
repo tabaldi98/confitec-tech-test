@@ -2,7 +2,7 @@
 {
     public static class CorsExtensions
     {
-        private static string CorsName = "ApiCorsPolicy";
+        private static string CorsName = "ApiCorsPolicie";
 
         public static void AddCors(this WebApplicationBuilder builder)
         {
@@ -12,8 +12,7 @@
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowed(origin => true)
-                .AllowCredentials()
-                .Build();
+                .AllowCredentials().Build();
             }));
         }
 

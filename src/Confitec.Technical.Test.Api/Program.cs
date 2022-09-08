@@ -31,8 +31,9 @@ try
     if (app.Environment.IsDevelopment())
     {
         app.UseDeveloperExceptionPage();
-        app.EnableSwagger();
     }
+
+    app.EnableSwagger();
 
     app.UseRouting();
 

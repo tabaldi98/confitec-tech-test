@@ -55,5 +55,14 @@ namespace Confitec.Technical.Test.Infra.Data.UserModule
 
             return rows > 0;
         }
+
+        public async Task<bool> DeleteManyAsync(int[] ids)
+        {
+            _context.Users.RemoveRange(_context.Users.Where(p => ids.Contains(p.ID)));
+
+            var rows = await _context.SaveChangesAsync();
+
+            return rows > 0;
+        }
     }
 }
