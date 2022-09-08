@@ -20,6 +20,8 @@ try
 
     builder.Services.AddVersioning();
 
+    builder.AddJwtBearerAuthentication();
+
     builder.Services.AddSwagger();
 
     builder.Services.AddDependencies();
@@ -40,6 +42,9 @@ try
     app.UseCustomCors();
 
     app.UseHealthChecks("/health-check");
+
+    app.UseAuthentication();
+    app.UseAuthorization();
 
     app.UseEndpoints(endpoints =>
     {

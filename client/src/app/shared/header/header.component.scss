@@ -20,7 +20,7 @@
 
 .sidenav {
     background-color: #3f51b5;
-    width: 20%;
+    width: 15%;
     height: calc(100vh - 65px);
     padding-left: 4px;
     border-width: 2px;
@@ -46,4 +46,18 @@
 
 .nav-list {
     width: 99%;
+}
+
+.account {
+    left: 88%;
+    position: relative;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+@media (max-width: 767px) {
+    .account {
+        left: 67%;
+    } 
 }

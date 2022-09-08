@@ -1,4 +1,5 @@
-﻿using Confitec.Technical.Test.Domain.UserModule;
+﻿using Confitec.Technical.Test.Domain.SystemUserModule;
+using Confitec.Technical.Test.Domain.UserModule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -26,5 +27,6 @@ namespace Confitec.Technical.Test.Infra.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<SystemUser> SystemUsers { get; set; }
     }
 }

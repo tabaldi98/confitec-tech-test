@@ -23,6 +23,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { AuthService } from './core/authentication/authentication.service';
+import { TokenInterceptor } from './core/http-interceptors/token-interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ClientErrorInterceptor } from './core/http-interceptors/client-error-interceptor';
 
 @NgModule({
   declarations: [
@@ -52,9 +58,23 @@ import { MatListModule } from '@angular/material/list';
     MatCheckboxModule,
     MatTooltipModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule,
+    MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ClientErrorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

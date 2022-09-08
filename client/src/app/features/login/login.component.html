@@ -1,0 +1,48 @@
+
+<div class="background">
+    <div class="container">
+        <form [formGroup]="form">
+            <table class="table" cellspacing="0">
+                <tr>
+                    <td class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Nome de usuário ou email</mat-label>
+                            <input matInput formControlName="login">
+                            <mat-error *ngIf="form.get('login')?.hasError('required')">
+                                Login não pode ser vazio
+                            </mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Senha</mat-label>
+                            <input matInput type="password" formControlName="password">
+                            <mat-error *ngIf="form.get('password')?.hasError('required')">
+                                Senha não pode ser vazia
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-error *ngIf="hasErrorOnLogin">
+                            Usuário ou senha inválido(s)!
+                        </mat-error>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-padding">
+                        <button mat-raised-button class="buttons primary-button" (click)="onLogin()" [disabled]="isLoading">Login</button>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a mat-flat-button class="buttons link-button">Esqueci minha senha</a>
+                        <a mat-flat-button class="buttons link-button">Registrar-se</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

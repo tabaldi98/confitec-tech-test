@@ -4,6 +4,7 @@ using Confitec.Technical.Test.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Confitec.Technical.Test.Infra.Data.Migrations
 {
     [DbContext(typeof(TechnicalTestContext))]
-    partial class TechnicalTestContextModelSnapshot : ModelSnapshot
+    [Migration("20220908211350_AddSystemUsers")]
+    partial class AddSystemUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

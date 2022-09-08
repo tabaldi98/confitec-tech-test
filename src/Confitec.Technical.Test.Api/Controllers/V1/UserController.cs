@@ -5,11 +5,13 @@ using Confitec.Technical.Test.Application.UserModule.UserGet;
 using Confitec.Technical.Test.Application.UserModule.UserRetrieve;
 using Confitec.Technical.Test.Application.UserModule.UserUpdate;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Confitec.Technical.Test.Api.Controllers.V1
 {
     [ApiController]
+    [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class UserController : Controller
     {

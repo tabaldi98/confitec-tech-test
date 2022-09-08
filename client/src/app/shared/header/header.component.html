@@ -4,11 +4,15 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1>{{title}}</h1>
+    <button mat-icon-button class="account" [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon></button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onExit()"><mat-icon>logout</mat-icon> Sair</button>
+    </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container (backdropClick)="onToggleSideNav()">
-  <mat-sidenav #sidenav class="sidenav" (keydown.escape)="onToggleSideNav()">
+  <mat-sidenav mode="side" #sidenav class="sidenav" (keydown.escape)="onToggleSideNav()">
     <mat-nav-list class="nav-list">
 
       <a matTooltip="Usuários" class="nav-item" mat-list-item [routerLink]="'/users'" (click)="title = 'Usuários';sidenav.toggle()">

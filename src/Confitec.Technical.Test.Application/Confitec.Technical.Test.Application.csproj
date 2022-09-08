@@ -9,10 +9,13 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.2.0" />
     <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Confitec.Technical.Test.Domain\Confitec.Technical.Test.Domain.csproj" />
+    <ProjectReference Include="..\Confitec.Technical.Test.Infra.Crosscutting\Confitec.Technical.Test.Infra.Crosscutting.csproj" />
   </ItemGroup>
 
 </Project>

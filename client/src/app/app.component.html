@@ -1,5 +1,9 @@
-<app-header></app-header>
-<!-- <div class="body">
+<mat-spinner *ngIf="isLoading" class="spinner-centered"></mat-spinner>
+
+<app-header *ngIf="isLogged && !isLoading"></app-header>
+<span class="body" *ngIf="!isLogged && !isLoading">
     <router-outlet></router-outlet>
+</span>
+<!-- <div class="body">
 </div> -->
 <!-- <app-footer></app-footer> -->
