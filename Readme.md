@@ -1,4 +1,4 @@
-# Api teste técnico Confitec
+# Teste técnico Confitec
 _Instruções para execução pelo docker_
 
 Com o docker inicializado na máquina, basta navegar até a pasta principal, e através do powershell executar o seguinte comando:
