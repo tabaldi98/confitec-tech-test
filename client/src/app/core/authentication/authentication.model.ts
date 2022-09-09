@@ -15,3 +15,18 @@ export interface ITokenModel {
     name: string;
     email: string;
 }
+
+export interface IRecoveryPassCommand {
+    userNameOrLogin: string;
+}
+
+export interface IRecoveryPassCheckCommand {
+    userName: string;
+    code: string;
+}
+
+export interface IUpdatePassCommand {
+    userName: string;
+    password: string;
+}
+

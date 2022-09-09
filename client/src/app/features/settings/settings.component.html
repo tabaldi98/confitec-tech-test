@@ -4,18 +4,25 @@
     <div class="table" cellspacing="0">
         <div class="tr-line">
             <h1 class="title">Side bar</h1>
-            <p class="text">Define se ao expandir o menu, continuará expandido na navegação ou ocultará o mesmo. Essa alteração só terá impacto após reiniciar a janela.</p>
-            <mat-slide-toggle color="primary" (change)="onToggleChange($event)" formControlName="sidebar">{{form.get('sidebar')?.value ? 'Fechar
+            <p class="text">Define se ao expandir o menu, continuará expandido na navegação ou ocultará o mesmo. Essa
+                alteração só terá impacto após reiniciar a janela.</p>
+            <mat-slide-toggle color="primary" formControlName="sidebar">
+                {{form.get('sidebar')?.value ? 'Fechar
                 automaticamente': 'Manter aberto'}}</mat-slide-toggle>
+
+            <button mat-raised-button class="buttons" (click)="onSaveSideBar()" [disabled]="!form.get('sidebar')?.dirty">Salvar</button>
         </div>
 
         <div class="tr-line">
             <h1 class="title">Tempo de sessão</h1>
-            <p class="text">Define o tempo (em minutos) de sessão dos usuários logados. Essa alteração só terá impacto em novas sessões.</p>
+            <p class="text">Define o tempo (em minutos) de sessão dos usuários logados. Essa alteração só terá impacto
+                em novas sessões.</p>
             <mat-form-field>
                 <mat-label>Valor</mat-label>
                 <input matInput type="number" min="60" max="1440" value="60" formControlName="session">
             </mat-form-field>
+
+            <button mat-raised-button class="buttons" (click)="onSaveSession()" [disabled]="!form.get('session')?.dirty">Salvar</button>
         </div>
 
     </div>

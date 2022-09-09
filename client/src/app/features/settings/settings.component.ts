@@ -37,13 +37,23 @@ export class SettingsComponent implements OnInit {
       })
   }
 
-  onToggleChange(toggle: MatSlideToggleChange): void {
+  onSaveSideBar(): void {
+    const value: boolean = this.form.get('sidebar')?.value;
+    this.saveChanges(SIDE_BAR_SETTING_ID, value ? '1' : '0');
+    this.localStorageService.setBoolValue(LocalStorageKeys.SideNav, value);
+  }
+
+  onSaveSession(): void {
+    const value: number = this.form.get('session')?.value;
+    this.saveChanges(SESSION_TIME_SETTING_ID, value.toString());
+  }
+
+  saveChanges(id: number, value: string): void {
     this.isLoading = true;
     this.settingsService.edit({
-      id: SIDE_BAR_SETTING_ID,
-      value: toggle.checked ? '1' : '0'
+      id,
+      value: value
     }).subscribe(() => {
-      this.localStorageService.setBoolValue(LocalStorageKeys.SideNav, toggle.checked);
       this.isLoading = false;
     })
   }

@@ -32,5 +32,13 @@ namespace Confitec.Technical.Test.Infra.Data.UserModule
 
             return userAdded.Entity;
         }
+
+        public async Task<SystemUser> UpdateAsync(SystemUser user)
+        {
+            var userAdded = _context.SystemUsers.Update(user);
+            await _context.SaveChangesAsync();
+
+            return userAdded.Entity;
+        }
     }
 }

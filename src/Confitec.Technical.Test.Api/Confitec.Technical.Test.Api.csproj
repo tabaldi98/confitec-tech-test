@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="6.0.2" />
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.2" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.1" />
@@ -29,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Confitec.Technical.Test.Application\Confitec.Technical.Test.Application.csproj" />
+    <ProjectReference Include="..\Confitec.Technical.Test.BackGround.Mail\Confitec.Technical.Test.BackGround.Mail.csproj" />
     <ProjectReference Include="..\Confitec.Technical.Test.Infra.Crosscutting\Confitec.Technical.Test.Infra.Crosscutting.csproj" />
     <ProjectReference Include="..\Confitec.Technical.Test.Infra.Data\Confitec.Technical.Test.Infra.Data.csproj" />
   </ItemGroup>

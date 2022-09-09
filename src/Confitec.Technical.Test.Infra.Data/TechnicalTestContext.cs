@@ -1,4 +1,5 @@
 ﻿using Confitec.Technical.Test.Domain.ParametersModule;
+using Confitec.Technical.Test.Domain.RecoveryPasswordModule;
 using Confitec.Technical.Test.Domain.SystemUserModule;
 using Confitec.Technical.Test.Domain.UserModule;
 using Microsoft.EntityFrameworkCore;
@@ -34,5 +35,6 @@ namespace Confitec.Technical.Test.Infra.Data
         public DbSet<User> Users { get; set; }
         public DbSet<SystemUser> SystemUsers { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
+        public DbSet<RecoveryPassword> RecoveryPassword { get; set; }
     }
 }

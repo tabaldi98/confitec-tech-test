@@ -1,0 +1,62 @@
+<div class="background">
+    <div class="container">
+        <form [formGroup]="form">
+            <table class="table" cellspacing="0">
+                <tr>
+                    <td *ngIf="!codeSend && !codeValidated" class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Nome de usuário ou email</mat-label>
+                            <input matInput formControlName="login">
+                            <mat-error *ngIf="form.get('login')?.hasError('required')">
+                                Nome de usuário não pode ser vazio
+                            </mat-error>
+                        </mat-form-field>
+                    </td>
+
+                    <td *ngIf="codeSend && !codeValidated" class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Insira o código enviado para seu e-mail</mat-label>
+                            <input matInput formControlName="code">
+                        </mat-form-field>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td *ngIf="codeSend && codeValidated" class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Senha</mat-label>
+                            <input matInput type="password" formControlName="password">
+                            <mat-error *ngIf="form.get('password')?.hasError('required')">
+                                Senha não pode ser vazia
+                            </mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td *ngIf="codeSend && codeValidated" class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Confirmar senha</mat-label>
+                            <input matInput type="password" formControlName="confirmPassword">
+                            <mat-error *ngIf="form.get('confirmPassword')?.hasError('required')">
+                                Senha não pode ser vazia
+                            </mat-error>
+                            <mat-error *ngIf="!passwordValid">
+                                Senhas não batem
+                            </mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-padding">
+                        <button *ngIf="!codeSend && !codeValidated" mat-raised-button class="buttons primary-button" (click)="onSend()"
+                            [disabled]="isLoading">Enviar</button>
+                        <button *ngIf="codeSend && !codeValidated" mat-raised-button class="buttons primary-button" (click)="onSend()"
+                            [disabled]="isLoading">Validar</button>
+                        <button *ngIf="codeSend && codeValidated" mat-raised-button class="buttons primary-button" (click)="onConfirm()"
+                            [disabled]="isLoading">Confirmar</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Confitec.Technical.Test.Infra.Data.UserModule
 {
-    public class SystemUserConfiguration : IEntityTypeConfiguration<SystemUser>
+    public class RecoveryPasswordConfiguration : IEntityTypeConfiguration<SystemUser>
     {
         public void Configure(EntityTypeBuilder<SystemUser> builder)
         {

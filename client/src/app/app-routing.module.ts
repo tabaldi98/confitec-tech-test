@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./features/login/login.module').then(x => x.LoginModule),
   },
   {
+    path: 'recovery-password',
+    loadChildren: () => import('./features/recovery-pass/recovery-pass.module').then(x => x.RecoveryPassModule),
+  },
+  {
     path: 'users',
     loadChildren: () => import('./features/user/user.module').then(x => x.UserModule),
     canActivate: [AuthGuardService]

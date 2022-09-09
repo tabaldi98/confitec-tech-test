@@ -31,6 +31,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Confitec.Technical.Test.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Confitec.Technical.Test.Tests", "Confitec.Technical.Test.Tests\Confitec.Technical.Test.Tests.csproj", "{E36848EA-099B-4D1F-A74B-0D20E072C859}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. BackGround", "5. BackGround", "{F1071D24-E838-4FC3-9B93-8E57514CD9DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confitec.Technical.Test.BackGround.Mail", "Confitec.Technical.Test.BackGround.Mail\Confitec.Technical.Test.BackGround.Mail.csproj", "{DD778F42-798A-46F4-968D-35EF7AAF7AE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,10 @@ Global
 		{E36848EA-099B-4D1F-A74B-0D20E072C859}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E36848EA-099B-4D1F-A74B-0D20E072C859}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E36848EA-099B-4D1F-A74B-0D20E072C859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD778F42-798A-46F4-968D-35EF7AAF7AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD778F42-798A-46F4-968D-35EF7AAF7AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD778F42-798A-46F4-968D-35EF7AAF7AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD778F42-798A-46F4-968D-35EF7AAF7AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +87,7 @@ Global
 		{89A8D64D-43E6-4C23-89F3-3CF2769B7FCF} = {A73C9D72-8E5F-446F-BBD7-B5EE1796B3A6}
 		{AF20D729-0A82-43E7-B257-B7045BC1BA63} = {38B68290-5A65-4753-B611-7A3A9AC3A5A8}
 		{E36848EA-099B-4D1F-A74B-0D20E072C859} = {B03E9222-933C-4F0F-A4A9-63071592D7ED}
+		{DD778F42-798A-46F4-968D-35EF7AAF7AE2} = {F1071D24-E838-4FC3-9B93-8E57514CD9DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63FF4512-EA74-4478-A5B2-88C96609DB2D}

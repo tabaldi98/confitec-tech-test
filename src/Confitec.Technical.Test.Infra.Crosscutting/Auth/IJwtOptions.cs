@@ -15,13 +15,15 @@ namespace Confitec.Technical.Test.Infra.Crosscutting.Auth
         DateTime IssuedAt { get; }
         DateTime NotBefore { get; }
         DateTime AccessTokenExpiration { get; }
+
+        void SetExpiration(int expirationMinutes);
     }
 
     public class JwtOptions : IJwtOptions
     {
         public string Issuer { get; }
         public string Audience { get; }
-        public int ExpirationMinutes { get; }
+        public int ExpirationMinutes { get; private set; }
         public bool RequireHttpsMetadata { get; }
         public SymmetricSecurityKey SymmetricSecurityKey { get; }
         public SigningCredentials SigningCredentials { get; }
@@ -40,6 +42,11 @@ namespace Confitec.Technical.Test.Infra.Crosscutting.Auth
             var signingKey = configuration.GetSection("AuthOptions").GetValue<string>("Secret");
             SymmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey));
             SigningCredentials = new SigningCredentials(SymmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
+        }
+
+        public void SetExpiration(int expirationMinutes)
+        {
+            ExpirationMinutes = expirationMinutes;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Confitec.Technical.Test.Domain.SystemUserModule;
+﻿using Confitec.Technical.Test.Application.ParametersModule.Retrieve;
+using Confitec.Technical.Test.Domain.ParametersModule;
+using Confitec.Technical.Test.Domain.SystemUserModule;
 using Confitec.Technical.Test.Infra.Crosscutting.Auth;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -13,13 +15,16 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Login
     {
         private readonly IJwtOptions _jwtOptions;
         private readonly ISystemUserRepository _systemUserRepository;
+        private readonly IMediator _mediator;
 
         public SystemUserLoginCommandHandler(
             IJwtOptions jwtOptions,
-            ISystemUserRepository systemUserRepository)
+            ISystemUserRepository systemUserRepository,
+            IMediator mediator)
         {
             _jwtOptions = jwtOptions;
             _systemUserRepository = systemUserRepository;
+            _mediator = mediator;
         }
 
         public async Task<SystemUserLoginModel> Handle(SystemUserLoginCommand request, CancellationToken cancellationToken)
@@ -30,6 +35,9 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Login
             systemUser.DoLogin(request.Password);
 
             var identity = GetClaimsIdentity(systemUser);
+
+            var sessionTime = await _mediator.Send(new ParameterRetrieveCommand(ParametersKeys.ID_SESSION_TIME));
+            _jwtOptions.SetExpiration(int.Parse(sessionTime.Value));
 
             var handler = new JwtSecurityTokenHandler();
             var securityToken = handler.CreateToken(new SecurityTokenDescriptor
@@ -45,7 +53,7 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Login
 
             var accessToken = handler.WriteToken(securityToken);
             var expiresIn = CalculateExpiresIn(securityToken.ValidFrom);
-            ;
+
             return new SystemUserLoginModel(accessToken, expiresIn);
         }
 

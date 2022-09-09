@@ -46,4 +46,8 @@ export class LoginComponent implements OnInit {
         }
       )
   }
+
+  onRecoveryPass(): void {
+    this.router.navigate(['/recovery-password']);
+  }
 }

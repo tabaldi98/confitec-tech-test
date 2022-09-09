@@ -1,4 +1,6 @@
-﻿namespace Confitec.Technical.Test.Domain.SystemUserModule
+﻿using Confitec.Technical.Test.Domain.RecoveryPasswordModule;
+
+namespace Confitec.Technical.Test.Domain.SystemUserModule
 {
     public class SystemUser : Entity
     {
@@ -9,8 +11,12 @@
         public DateTime CreateDate { get; private set; }
         public DateTime? LastLoginDate { get; private set; }
 
+        private readonly List<RecoveryPassword> _recoveryPasswords;
+        public virtual ICollection<RecoveryPassword> RecoveryPasswords => _recoveryPasswords;
+
         public SystemUser()
         {
+            _recoveryPasswords = new List<RecoveryPassword>();
             CreateDate = DateTime.Now;
         }
 
@@ -34,10 +40,15 @@
 
         public static SystemUser DefaultUser()
         {
-            return new SystemUser("Administrador", "admin", "123", "tabaldi98@gmail.com")
+            return new SystemUser("Administrador do Sistema", "admin", "123", "andersonandi_t@hotmail.com")
             {
                 ID = 1
             };
+        }
+
+        public void UpdatePass(string newPass)
+        {
+            Password = newPass;
         }
     }
 }
