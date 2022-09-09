@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
         (result: boolean) => {
           this.isLogged = result;
           this.isLoading = false;
-          this.router.navigate(['/users']);
+         // this.router.navigate(['/users']);
         },
         (): void => {
           this.isLoading = false;

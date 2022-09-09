@@ -1,4 +1,5 @@
-﻿using Confitec.Technical.Test.Domain.SystemUserModule;
+﻿using Confitec.Technical.Test.Domain.ParametersModule;
+using Confitec.Technical.Test.Domain.SystemUserModule;
 using Confitec.Technical.Test.Domain.UserModule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,9 +25,14 @@ namespace Confitec.Technical.Test.Infra.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+
+            // Default data
+            modelBuilder.Entity<SystemUser>().HasData(SystemUser.DefaultUser());
+            modelBuilder.Entity<Parameter>().HasData(Parameter.GetDefaultParameters());
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<SystemUser> SystemUsers { get; set; }
+        public DbSet<Parameter> Parameters { get; set; }
     }
 }

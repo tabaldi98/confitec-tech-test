@@ -5,6 +5,7 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Create
 {
     public class SystemUserCreateCommand : IRequest<int>
     {
+        public string FullName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Mail { get; set; }
@@ -14,6 +15,10 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Create
     {
         public SystemUserCreateCommandValidator()
         {
+            RuleFor(p => p.FullName)
+                .NotEmpty()
+                .MaximumLength(255);
+
             RuleFor(p => p.UserName)
                 .NotEmpty()
                 .MaximumLength(255);

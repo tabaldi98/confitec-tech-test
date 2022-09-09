@@ -170,24 +170,26 @@ export class HomeUserComponent implements OnInit {
   }
 
   onDeleteCheckeds(): void {
-    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
-      width: '250px',
-      data: null
-    });
+    if (this.rowsSelected.find((user: User) => user.checked)) {
+      const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+        width: '250px',
+        data: null
+      });
 
-    dialogRef.afterClosed()
-      .subscribe(
-        result => {
-          if (result) {
-            this.isLoading = true;
-            const usersIds: number[] = this.rowsSelected.map((user: User) => user.id);
-            this.userService
-              .deleteManyUsers({ ids: usersIds })
-              .subscribe(() => {
-                this.data = this.data.filter((p: User) => !usersIds.includes(p.id));
-                this.isLoading = false;
-              });
-          }
-        });
+      dialogRef.afterClosed()
+        .subscribe(
+          result => {
+            if (result) {
+              this.isLoading = true;
+              const usersIds: number[] = this.rowsSelected.map((user: User) => user.id);
+              this.userService
+                .deleteManyUsers({ ids: usersIds })
+                .subscribe(() => {
+                  this.data = this.data.filter((p: User) => !usersIds.includes(p.id));
+                  this.isLoading = false;
+                });
+            }
+          });
+    }
   }
 }

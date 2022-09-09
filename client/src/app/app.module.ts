@@ -29,6 +29,8 @@ import { TokenInterceptor } from './core/http-interceptors/token-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClientErrorInterceptor } from './core/http-interceptors/client-error-interceptor';
+import { AuthGuardService } from './core/authentication/auth-guard.service';
+import { LocalStorageService } from './core/local-storage/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { ClientErrorInterceptor } from './core/http-interceptors/client-error-in
       useClass: ClientErrorInterceptor,
       multi: true,
     },
+    AuthGuardService,
+    LocalStorageService,
   ],
   bootstrap: [AppComponent]
 })

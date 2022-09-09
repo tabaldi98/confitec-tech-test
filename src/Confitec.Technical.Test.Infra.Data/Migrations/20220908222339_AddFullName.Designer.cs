@@ -4,6 +4,7 @@ using Confitec.Technical.Test.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Confitec.Technical.Test.Infra.Data.Migrations
 {
     [DbContext(typeof(TechnicalTestContext))]
-    partial class TechnicalTestContextModelSnapshot : ModelSnapshot
+    [Migration("20220908222339_AddFullName")]
+    partial class AddFullName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,49 +23,6 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Confitec.Technical.Test.Domain.ParametersModule.Parameter", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<DateTime>("LastDateUpdated")
-                        .HasMaxLength(255)
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Parameters", "dbo");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Key = "SIDE_BAR_TYPE",
-                            LastDateUpdated = new DateTime(2022, 9, 9, 9, 10, 55, 729, DateTimeKind.Local).AddTicks(923),
-                            Value = "1"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Key = "SESSION_TIME",
-                            LastDateUpdated = new DateTime(2022, 9, 9, 9, 10, 55, 729, DateTimeKind.Local).AddTicks(927),
-                            Value = "120"
-                        });
-                });
 
             modelBuilder.Entity("Confitec.Technical.Test.Domain.SystemUserModule.SystemUser", b =>
                 {
@@ -102,17 +61,6 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("SystemUsers", "dbo");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CreateDate = new DateTime(2022, 9, 9, 9, 10, 55, 729, DateTimeKind.Local).AddTicks(816),
-                            FullName = "Administrador",
-                            Mail = "tabaldi98@gmail.com",
-                            Password = "123",
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Confitec.Technical.Test.Domain.UserModule.User", b =>

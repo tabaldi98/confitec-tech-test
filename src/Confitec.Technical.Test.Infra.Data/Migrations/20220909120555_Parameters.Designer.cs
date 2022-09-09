@@ -4,6 +4,7 @@ using Confitec.Technical.Test.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Confitec.Technical.Test.Infra.Data.Migrations
 {
     [DbContext(typeof(TechnicalTestContext))]
-    partial class TechnicalTestContextModelSnapshot : ModelSnapshot
+    [Migration("20220909120555_Parameters")]
+    partial class Parameters
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,14 +55,14 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                         {
                             ID = 1,
                             Key = "SIDE_BAR_TYPE",
-                            LastDateUpdated = new DateTime(2022, 9, 9, 9, 10, 55, 729, DateTimeKind.Local).AddTicks(923),
+                            LastDateUpdated = new DateTime(2022, 9, 9, 9, 5, 54, 817, DateTimeKind.Local).AddTicks(2930),
                             Value = "1"
                         },
                         new
                         {
                             ID = 2,
                             Key = "SESSION_TIME",
-                            LastDateUpdated = new DateTime(2022, 9, 9, 9, 10, 55, 729, DateTimeKind.Local).AddTicks(927),
+                            LastDateUpdated = new DateTime(2022, 9, 9, 9, 5, 54, 817, DateTimeKind.Local).AddTicks(2940),
                             Value = "120"
                         });
                 });
@@ -102,17 +104,6 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("SystemUsers", "dbo");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            CreateDate = new DateTime(2022, 9, 9, 9, 10, 55, 729, DateTimeKind.Local).AddTicks(816),
-                            FullName = "Administrador",
-                            Mail = "tabaldi98@gmail.com",
-                            Password = "123",
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Confitec.Technical.Test.Domain.UserModule.User", b =>

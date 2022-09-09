@@ -56,7 +56,8 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Login
                 new GenericIdentity(systemUser.UserName),
                 new[] {
                     new Claim("TokenID", Guid.NewGuid().ToString()),
-                    new Claim("ID", systemUser.ID.ToString()),
+                    new Claim("id", systemUser.ID.ToString()),
+                    new Claim("fullname", systemUser.FullName),
                 }
             );
         }

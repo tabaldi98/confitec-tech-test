@@ -1,21 +1,25 @@
 <mat-toolbar class="header" color="primary">
   <mat-toolbar-row>
-    <button mat-icon-button (click)="onToggleSideNav()">
+    <button mat-icon-button (click)="sidenav?.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1>{{title}}</h1>
-    <button mat-icon-button class="account" [matMenuTriggerFor]="menu"><mat-icon>account_circle</mat-icon></button>
+    <h1 class="title">{{title}}</h1>
+    <button mat-icon-button class="account" [matMenuTriggerFor]="menu" [matTooltip]="fullname"> {{fullname}} aaaaaaaaaaaaaaaa</button>
+    <mat-icon class="account-icon" [matMenuTriggerFor]="menu" [matTooltip]="fullname">account_circle</mat-icon>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="onExit()"><mat-icon>logout</mat-icon> Sair</button>
+      <button mat-menu-item (click)="onExit()">
+        <mat-icon>logout</mat-icon> Sair
+      </button>
     </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container (backdropClick)="onToggleSideNav()">
-  <mat-sidenav mode="side" #sidenav class="sidenav" (keydown.escape)="onToggleSideNav()">
+<mat-sidenav-container (backdropClick)="sidenav?.toggle()">
+  <mat-sidenav [mode]="mode" #sidenav class="sidenav" (keydown.escape)="sidenav?.toggle()">
     <mat-nav-list class="nav-list">
 
-      <a matTooltip="Usuários" class="nav-item" mat-list-item [routerLink]="'/users'" (click)="title = 'Usuários';sidenav.toggle()">
+      <a matTooltip="Usuários" class="nav-item" mat-list-item [routerLink]="'/users'"
+        (click)="title = 'Usuários';sidenav.toggle()">
         <mat-icon>person</mat-icon>
         <span class="text">Usuários</span>
       </a>
@@ -24,6 +28,18 @@
         (click)="title = 'Usuários > Criar';sidenav.toggle()">
         <mat-icon>person_add</mat-icon>
         <span class="text">Criar usuário</span>
+      </a>
+
+      <a matTooltip="Usuários do sistema" class="nav-item" mat-list-item [routerLink]="'/user-systems'"
+        (click)="title = 'Usuários do sistema';sidenav.toggle()">
+        <mat-icon>manage_accounts</mat-icon>
+        <span class="text">Usuários do sistema</span>
+      </a>
+
+      <a matTooltip="Configurações" class="nav-item" mat-list-item [routerLink]="'/settings'"
+        (click)="title = 'Configurações';sidenav.toggle()">
+        <mat-icon>settings</mat-icon>
+        <span class="text">Configurações</span>
       </a>
 
     </mat-nav-list>

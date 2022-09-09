@@ -8,3 +8,10 @@ export interface IAuthenticationModel {
     tokenType: string;
     expiresIn: number;
 }
+
+export interface ITokenModel {
+    id: number;
+    fullname: string;
+    name: string;
+    email: string;
+}

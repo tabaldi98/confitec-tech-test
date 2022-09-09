@@ -36,7 +36,10 @@ export class LoginComponent implements OnInit {
         (result: IAuthenticationModel): void => {
           this.hasErrorOnLogin = false;
           localStorage.setItem('token', result.accessToken);
-          window.location.reload();
+          this.router.navigate(['./'])
+            .then(() => {
+              window.location.reload();
+            });
         },
         (): void => {
           this.hasErrorOnLogin = true;

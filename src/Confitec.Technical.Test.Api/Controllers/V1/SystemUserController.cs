@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Confitec.Technical.Test.Api.Controllers.V1
 {
     [ApiController]
-    [AllowAnonymous]
+    [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SystemUserController : Controller
     {

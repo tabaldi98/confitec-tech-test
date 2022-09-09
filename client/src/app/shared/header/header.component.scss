@@ -1,17 +1,10 @@
 .header {
     height: 50px;
+    width: 100%;
 }
 
 .title {
     padding: 10px;
-}
-
-.example-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
 
 .body {
@@ -48,16 +41,41 @@
     width: 99%;
 }
 
+.title {
+    width: 150px;
+    max-width: 150px;
+}
+
 .account {
-    left: 88%;
-    position: relative;
+    width: 200px;
+    padding-right: 50px;
     background-color: transparent;
     border: none;
     color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: right;
+    float: left;
+    left: 91%;
+    position: sticky;
 }
 
-@media (max-width: 767px) {
+.account-icon {
+    cursor: pointer;
+    border: 1px;
+    left: 97%;
+    position: sticky;
+    background-color: transparent;
+}
+
+@media (max-width: 890px) {
     .account {
-        left: 67%;
-    } 
+        left: 86%;
+    }
+
+    .account-icon {
+        left: 94%;
+        padding-left: 3px;
+    }
 }
