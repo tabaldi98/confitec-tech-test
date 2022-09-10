@@ -17,7 +17,7 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.RecoveryPasswordV
             var recovery = await _recoveryPasswordRepository.RetrieveAsync(RecoveryPasswordSpecification.ByUserName(request.UserName));
             if (recovery == null) { throw new InvalidDataException("Recovery not found!"); }
 
-            var isValid = recovery.ValidateCode(recovery.Code);
+            var isValid = recovery.ValidateCode(request.Code);
 
             await _recoveryPasswordRepository.UpdateAsync(recovery);
 

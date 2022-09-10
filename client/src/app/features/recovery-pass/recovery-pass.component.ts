@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/authentication/authentication.service';
+import { SnackBarService } from 'src/app/core/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-recovery-pass',
@@ -11,80 +12,84 @@ import { AuthService } from 'src/app/core/authentication/authentication.service'
   styleUrls: ['./recovery-pass.component.scss']
 })
 export class RecoveryPassComponent implements OnInit {
-  form!: FormGroup;
-  isLoading: boolean = false;
-  hasErrorOnLogin: boolean = false;
-  codeSend: boolean = false;
-  codeValidated: boolean = false;
-  userName: string = '';
-  passwordValid: boolean = false;
+  formFirstStep!: FormGroup;
+  formSecondStep!: FormGroup;
+  formThirdStep!: FormGroup;
 
   constructor(
     public authService: AuthService,
     private router: Router,
-    private _snackBar: MatSnackBar) { }
+    private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
+    this.formFirstStep = new FormGroup({
       login: new FormControl('', [Validators.required]),
-      code: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
     });
+
+    this.formSecondStep = new FormGroup({
+      code: new FormControl('', [Validators.required]),
+    });
+    this.formSecondStep.disable();
+
+    this.formThirdStep = new FormGroup({
+      pass: new FormControl('', [Validators.required]),
+      pass2: new FormControl('', [Validators.required]),
+    });
+    this.formThirdStep.disable();
   }
 
-  onSend(): void {
-    this.isLoading = true;
-
-    if (this.codeSend) {
-      this.authService
-        .validateCode({
-          userName: this.userName,
-          code: this.form.get('code')?.value
+  onFirstActionSubmmit(stepper: MatStepper): void {
+    this.formFirstStep.disable();
+    this.authService
+      .recoveryPassword({ userNameOrLogin: this.formFirstStep.get('login')?.value })
+      .pipe(take(1))
+      .subscribe(
+        () => {
+          stepper.next();
+          this.formSecondStep.enable();
+        },
+        () => {
+          this.snackBarService.showErrorSnackBar('Nenhum usuário encontrado!');
+          this.formFirstStep.enable();
         })
-        .pipe(take(1))
-        .subscribe((response: boolean) => {
-          if (!response) {
-            this.codeValidated = false
-            this._snackBar.open('Código informado é inválido!', undefined, { duration: 3000 });
-          } else {
-            this.codeValidated = true;
-          }
-          this.isLoading = false;
-        })
-
-    } else {
-      this.authService
-        .recoveryPassword({
-          userNameOrLogin: this.form.get('login')?.value
-        })
-        .pipe(take(1))
-        .subscribe(() => {
-          this._snackBar.open('Código enviado para o e-mail cadastrado!', undefined, { duration: 3000 });
-          this.codeSend = true;
-          this.isLoading = false;
-          this.userName = this.form.get('login')?.value;
-          this.form.get('login')?.setValue('');
-        })
-    }
   }
 
-  onConfirm(): void {
-    const pass: string = this.form.get('password')?.value;
-    const confPass: string = this.form.get('confirmPassword')?.value;
-
-    this.passwordValid = pass === confPass;
-
-    if (this.passwordValid) {
-      this.authService.updatePassword({
-        userName: this.userName,
-        password: pass
+  onSecondActionSubmmit(stepper: MatStepper): void {
+    this.formSecondStep.disable();
+    this.authService
+      .validateCode({
+        userName: this.formFirstStep.get('login')?.value,
+        code: this.formSecondStep.get('code')?.value
       })
-        .pipe(take(1))
-        .subscribe(() => {
-          this._snackBar.open('Senha alterada com sucesso!', undefined, { duration: 3000 });
-          this.router.navigate(['/login']);
-        });
+      .subscribe(
+        (result: boolean) => {
+          if (result) {
+            stepper.next();
+            this.formThirdStep.enable();
+          } else {
+            this.snackBarService.showErrorSnackBar('Código inválido!');
+            this.formSecondStep.enable();
+          }
+        })
+  }
+
+  onThirdActionSubmmit(stepper: MatStepper): void {
+    const pass: string = this.formThirdStep.get('pass')?.value
+    const pass2: string = this.formThirdStep.get('pass2')?.value
+
+    if (pass !== pass2) {
+      this.snackBarService.showErrorSnackBar('Senhas não conferem!');
+      return;
     }
+
+    this.authService.updatePassword({
+      userName: this.formFirstStep.get('login')?.value,
+      password: pass
+    })
+      .pipe(take(1))
+      .subscribe(() => {
+        this.router.navigate(['/login'])
+          .then(() => this.snackBarService.showSucessSnackBar('Senha alterada com sucesso!'));
+      });
   }
 }

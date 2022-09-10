@@ -1,8 +1,92 @@
 <div class="background">
     <div class="container">
-        <form [formGroup]="form">
-            <table class="table" cellspacing="0">
-                <tr>
+        <!-- <table class="table" cellspacing="0"> -->
+
+        <mat-vertical-stepper class="vertica-stepper" #stepper [linear]="true">
+            <mat-step>
+                <form [formGroup]="formFirstStep">
+                    <ng-template matStepLabel>Nome de usuário ou e-mail</ng-template>
+                    <mat-form-field appearance="fill">
+                        <input matInput placeholder="Digite seu nome de usuário ou e-mail" formControlName="login"
+                            required>
+                        <mat-error *ngIf="formFirstStep.get('login')?.hasError('required')">
+                            Campo não pode ser vazio
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button class="buttons primary-button" (click)="onFirstActionSubmmit(stepper)"
+                            [disabled]="!formFirstStep.valid">Enviar código</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step>
+                <form [formGroup]="formSecondStep">
+                    <ng-template matStepLabel>Insira o código enviado para o seu e-mail</ng-template>
+                    <mat-form-field appearance="fill">
+                        <input matInput placeholder="Digite o código" formControlName="code" required>
+                        <mat-error *ngIf="formSecondStep.get('code')?.hasError('required')">
+                            Campo não pode ser vazio
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button class="buttons primary-button"
+                            (click)="onSecondActionSubmmit(stepper)" [disabled]="!formSecondStep.valid">Validar
+                            código</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step>
+                <form [formGroup]="formThirdStep">
+                    <ng-template matStepLabel>Insira sua nova senha</ng-template>
+                    <table>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Senha</mat-label>
+                                    <input type="password" matInput placeholder="Digite a senha" formControlName="pass"
+                                        required>
+                                    <mat-error *ngIf="formThirdStep.get('pass')?.hasError('required')">
+                                        Campo não pode ser vazio
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Confirmar senha</mat-label>
+                                    <input type="password" matInput placeholder="Digite novamente a senha"
+                                        formControlName="pass2" required>
+                                    <mat-error *ngIf="formThirdStep.get('pass2')?.hasError('required')">
+                                        Campo não pode ser vazio
+                                    </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <button mat-raised-button class="buttons primary-button" (click)="onThirdActionSubmmit(stepper)"
+                            [disabled]="!formThirdStep.valid">Salvar</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- <mat-step [completed]="false">
+                <ng-template matStepLabel>Step 2</ng-template>
+                <ng-template matStepContent>
+                    <p>This content was also rendered lazily</p>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </ng-template>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Step 3</ng-template>
+                <p>This content was rendered eagerly</p>
+                <button mat-button matStepperPrevious>Back</button>
+            </mat-step> -->
+        </mat-vertical-stepper>
+
+        <!--   <tr>
                     <td *ngIf="!codeSend && !codeValidated" class="td-padding">
                         <mat-form-field class="table">
                             <mat-label>Nome de usuário ou email</mat-label>
@@ -18,10 +102,10 @@
                             <mat-label>Insira o código enviado para seu e-mail</mat-label>
                             <input matInput formControlName="code">
                         </mat-form-field>
-                    </td>
+                    </td> 
                 </tr>
 
-                <tr>
+             <tr>
                     <td *ngIf="codeSend && codeValidated" class="td-padding">
                         <mat-form-field class="table">
                             <mat-label>Senha</mat-label>
@@ -45,7 +129,7 @@
                             </mat-error>
                         </mat-form-field>
                     </td>
-                </tr>
+                </tr> 
                 <tr>
                     <td class="td-padding">
                         <button *ngIf="!codeSend && !codeValidated" mat-raised-button class="buttons primary-button" (click)="onSend()"
@@ -56,7 +140,6 @@
                             [disabled]="isLoading">Confirmar</button>
                     </td>
                 </tr>
-            </table>
-        </form>
+            </table>-->
     </div>
 </div>

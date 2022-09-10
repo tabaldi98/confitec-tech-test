@@ -1,0 +1,21 @@
+
+
+::ng-deep .snack-bar {
+    color: white;
+    text-align: center;
+
+    &--sucess {
+        background-color: green;
+        background: green !important;
+    } 
+    
+    &--alert {
+        background-color: yellow;
+        background: yellow !important;
+    } 
+    
+    &--error {
+        background-color: red;
+        background: red !important;
+    }
+}

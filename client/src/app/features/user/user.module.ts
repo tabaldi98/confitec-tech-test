@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderBackModule } from "src/app/shared/header-back/header-back.module";
 import { SaveButtonsModule } from "src/app/shared/save-buttons/save-buttons.module";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { UserRoutingModule } from "./user-routing.module";
 import { UserAddComponent } from "./user-add/user-add.component";
 import { UserViewComponent } from "./user-view/user-view.component";
@@ -43,7 +42,6 @@ import { GridModule } from "src/app/shared/grid/grid.module";
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
-        MatSnackBarModule,
         MatCheckboxModule,
         MatTooltipModule,
         HeaderBackModule,

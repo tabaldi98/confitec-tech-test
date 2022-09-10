@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { take } from 'rxjs/operators';
 import { LocalStorageKeys } from 'src/app/core/local-storage/local-storage.model';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
@@ -19,7 +17,6 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private snackBar: MatSnackBar,
     private settingsService: SettingsService) { }
 
   ngOnInit(): void {

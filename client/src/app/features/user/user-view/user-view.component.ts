@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+import { SnackBarService } from 'src/app/core/snack-bar/snack-bar.service';
 import { UserService } from 'src/app/features/user/shared/user.service';
 import { allUserScholarity, formatScholarity, User, UserScholarity } from '../shared/user.model';
 
@@ -23,7 +23,7 @@ export class UserViewComponent implements OnInit {
     public userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar) { }
+    private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
     this.route.params
@@ -70,6 +70,6 @@ export class UserViewComponent implements OnInit {
   }
 
   showSnackBar(): void {
-    this.snackBar.open('Já existe um usuário cadastrado com esse nome!', undefined, { duration: 3000 });
+    this.snackBarService.showErrorSnackBar('Já existe um usuário cadastrado com esse nome!');
   }
 }

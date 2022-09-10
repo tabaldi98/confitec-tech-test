@@ -31,6 +31,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClientErrorInterceptor } from './core/http-interceptors/client-error-interceptor';
 import { AuthGuardService } from './core/authentication/auth-guard.service';
 import { LocalStorageService } from './core/local-storage/local-storage.service';
+import { SnackBarService } from './core/snack-bar/snack-bar.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { LocalStorageService } from './core/local-storage/local-storage.service'
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [
     AuthService,
@@ -78,6 +79,7 @@ import { LocalStorageService } from './core/local-storage/local-storage.service'
     },
     AuthGuardService,
     LocalStorageService,
+    SnackBarService
   ],
   bootstrap: [AppComponent]
 })

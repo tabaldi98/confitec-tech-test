@@ -9,7 +9,6 @@ import { SettingsComponent } from "./settings.component";
 import { SettingsRoutingModule } from "./settings-routing.module";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SettingsService } from "./shared/settings.service";
 
 @NgModule({
@@ -23,7 +22,6 @@ import { SettingsService } from "./shared/settings.service";
         ReactiveFormsModule,
         MatProgressSpinnerModule,
         MatDividerModule,
-        MatSnackBarModule,
         MatSlideToggleModule
     ],
     declarations: [

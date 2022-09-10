@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User, UserCreateCommand, UserDeleteCommand, UserUpdateCommand } from './user.model';
+import { SnackBarService } from 'src/app/core/snack-bar/snack-bar.service';
 
 @Injectable()
 export class UserService {
   userApiUrl = `${environment.apiUrl}User`;
 
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
+  constructor(
+    private http: HttpClient,
+     private snackBarService: SnackBarService) { }
 
   get(id: number): Observable<User> {
     return this.http.get<User>(`${this.userApiUrl}/${id}`);
@@ -49,7 +51,7 @@ export class UserService {
   }
 
   showSnackBar(message: string): void {
-    this._snackBar.open(message, undefined, { duration: 3000 })
+    this.snackBarService.showSucessSnackBar(message)
   }
 }
 

@@ -4,9 +4,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { RecoveryPassComponent } from "./recovery-pass.component";
 import { RecoveryPassRoutingModule } from "./recovery-pass-routing.module";
+import { MatStepperModule } from '@angular/material/stepper';
+import { CdkStepperModule } from '@angular/cdk/stepper';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { RecoveryPassRoutingModule } from "./recovery-pass-routing.module";
         MatButtonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatProgressSpinnerModule
+        CdkStepperModule,
+        MatStepperModule,
     ],
     declarations: [
         RecoveryPassComponent,
