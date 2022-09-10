@@ -23,14 +23,6 @@ namespace Confitec.Technical.Test.Api.Controllers.V1
         }
 
         [HttpGet]
-        [Route("")]
-        [Produces("application/json")]
-        public async Task<IActionResult> GetAllAsync()
-        {
-            return Ok(await _mediator.Send(new UserRetrieveQuery()));
-        }
-
-        [HttpGet]
         [Route("{id:int}")]
         [Produces("application/json")]
         public async Task<IActionResult> Get(int id)

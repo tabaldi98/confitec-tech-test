@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GridColumnType, GridConfig } from 'src/app/shared/grid/models/grid-columns.model';
+import { IODataModel } from 'src/app/shared/grid/models/odata.model';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { formatScholarity, User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
@@ -163,8 +164,8 @@ export class HomeUserComponent implements OnInit {
 
   updateTable(): void {
     this.userService.getAllUsers()
-      .subscribe((data: User[]) => {
-        this.data = data;
+      .subscribe((data: IODataModel<User>) => {
+        this.data = data.value;
         this.isLoading = false;
       });
   }

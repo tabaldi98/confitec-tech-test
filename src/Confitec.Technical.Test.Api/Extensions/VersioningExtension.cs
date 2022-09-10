@@ -15,6 +15,7 @@ namespace Confitec.Technical.Test.Api.Extensions
 
                 // V1
                 p.Conventions.Controller(typeof(Controllers.V1.UserController)).HasApiVersion(ApiVersion.Parse("1"));
+                p.Conventions.Controller(typeof(Controllers.V1.OData.UsersODataController)).HasApiVersion(ApiVersion.Parse("1"));
                 p.Conventions.Controller(typeof(Controllers.V1.LoginController)).HasApiVersion(ApiVersion.Parse("1"));
                 p.Conventions.Controller(typeof(Controllers.V1.SystemUserController)).HasApiVersion(ApiVersion.Parse("1"));
                 p.Conventions.Controller(typeof(Controllers.V1.ParameterController)).HasApiVersion(ApiVersion.Parse("1"));

@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User, UserCreateCommand, UserDeleteCommand, UserUpdateCommand } from './user.model';
 import { SnackBarService } from 'src/app/core/snack-bar/snack-bar.service';
+import { IODataModel } from 'src/app/shared/grid/models/odata.model';
 
 @Injectable()
 export class UserService {
@@ -18,15 +19,8 @@ export class UserService {
     return this.http.get<User>(`${this.userApiUrl}/${id}`);
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.userApiUrl)
-      .pipe(map((users: User[]) => {
-        users.forEach((user: User) => {
-          user.checked = false;
-        })
-
-        return users;
-      }));
+  getAllUsers(): Observable<IODataModel<User>> {
+    return this.http.get<IODataModel<User>>(`${environment.odataUrl}UsersOData?count=true&top=100`);
   }
 
   createUser(user: UserCreateCommand): Observable<number> {

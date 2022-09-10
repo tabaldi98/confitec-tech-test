@@ -41,7 +41,7 @@ namespace Confitec.Technical.Test.Tests.Application.UserModule
                 .ReturnsAsync(new List<User>() { user });
 
             // Act
-            var result = await GetHandler().Handle(new UserRetrieveQuery(), default);
+            var result = await GetHandler().Handle(new UserRetrieveODataQuery(), default);
 
             // Assert
             result.Should().ContainEquivalentOf(user);
@@ -50,9 +50,9 @@ namespace Confitec.Technical.Test.Tests.Application.UserModule
             CacheMockExtensions.VerifyAllCachedMocks();
         }
 
-        private UserRetrieveQueryHandler GetHandler()
+        private UserRetrieveODataQueryHandler GetHandler()
         {
-            return new UserRetrieveQueryHandler(_mockUserRepository.Object);
+            return new UserRetrieveODataQueryHandler(_mockUserRepository.Object);
         }
     }
 }

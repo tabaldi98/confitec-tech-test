@@ -40,15 +40,15 @@ namespace Confitec.Technical.Test.Tests.Api.V1
         {
             //Arrange
             _mockMediator
-                .SetupVerifiable(p => p.Send(It.IsAny<UserRetrieveQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new List<UserRetrieveModel>());
+                .SetupVerifiable(p => p.Send(It.IsAny<UserRetrieveODataQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<UserRetrieveODataModel>());
 
             // Act
             var result = await _controller.GetAllAsync();
 
             // Assert
             var response = result.Should().BeOfType<OkObjectResult>().Subject.Value;
-            response.Should().BeOfType<List<UserRetrieveModel>>();
+            response.Should().BeOfType<List<UserRetrieveODataModel>>();
 
             CacheMockExtensions.VerifyAllCachedMocks();
         }

@@ -1,4 +1,5 @@
-﻿using Confitec.Technical.Test.Domain.Contracts.Specification;
+﻿using Confitec.Technical.Test.Domain.Contracts.Mappers;
+using Confitec.Technical.Test.Domain.Contracts.Specification;
 using Confitec.Technical.Test.Domain.UserModule;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,13 @@ namespace Confitec.Technical.Test.Infra.Data.UserModule
         public UserRepository(TechnicalTestContext technicalTestContext)
         {
             _context = technicalTestContext;
+        }
+
+        public IQueryable<TResult> RetrieveOData<TResult>(IHaveMapper<User, TResult> mapper)
+        {
+            var specifiedEntities = mapper.Specification == null ? _context.Users.AsNoTracking() : _context.Users.AsNoTracking().Where(mapper.Specification.SatisfiedBy());
+
+            return specifiedEntities.Select(mapper.Selector);
         }
 
         public Task<bool> AnyAsync(ISpecification<User> specification)

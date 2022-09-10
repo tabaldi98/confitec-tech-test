@@ -14,7 +14,8 @@ try
 
     builder.Services.AddControllers()
         .AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<UserCreateCommandValidator>())
-        .AddNewtonsoftJson();
+        .AddNewtonsoftJson()
+        .AddODataOptions();
 
     builder.Services.AddMediatR(typeof(UserCreateCommandHandler));
 

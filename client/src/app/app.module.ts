@@ -32,6 +32,7 @@ import { ClientErrorInterceptor } from './core/http-interceptors/client-error-in
 import { AuthGuardService } from './core/authentication/auth-guard.service';
 import { LocalStorageService } from './core/local-storage/local-storage.service';
 import { SnackBarService } from './core/snack-bar/snack-bar.service';
+import { GridODataService } from './shared/grid/shared/grid-odata.service';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { SnackBarService } from './core/snack-bar/snack-bar.service';
     },
     AuthGuardService,
     LocalStorageService,
-    SnackBarService
+    SnackBarService,
+    GridODataService
   ],
   bootstrap: [AppComponent]
 })
