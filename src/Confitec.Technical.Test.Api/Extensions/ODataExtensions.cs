@@ -13,7 +13,6 @@ namespace Confitec.Technical.Test.Api.Extensions
             {
                 p.AddRouteComponents("v1", GetEdmModel());
                 p.Filter();
-                p.Filter();
                 p.Select();
                 p.Count();
                 p.Expand();

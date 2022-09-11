@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="title">{{title}}</h1>
-    <button mat-icon-button class="account" [matMenuTriggerFor]="menu" [matTooltip]="fullname"> {{fullname}} aaaaaaaaaaaaaaaa</button>
+    <button mat-icon-button class="account" [matMenuTriggerFor]="menu" [matTooltip]="fullname"> {{fullname}}</button>
     <mat-icon class="account-icon" [matMenuTriggerFor]="menu" [matTooltip]="fullname">account_circle</mat-icon>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onExit()">
@@ -19,31 +19,32 @@
     <mat-nav-list class="nav-list">
 
       <a matTooltip="Usuários" class="nav-item" mat-list-item [routerLink]="'/users'"
-        (click)="title = 'Usuários';sidenav.toggle()">
+        (click)="onClick('Usuários', sidenav)">
         <mat-icon>person</mat-icon>
         <span class="text">Usuários</span>
       </a>
 
       <a matTooltip="Criar usuário" class="nav-item" mat-list-item [routerLink]="'/users/create'"
-        (click)="title = 'Usuários > Criar';sidenav.toggle()">
+        (click)="onClick('Usuários > Criar', sidenav)">
         <mat-icon>person_add</mat-icon>
         <span class="text">Criar usuário</span>
       </a>
 
       <a matTooltip="Usuários do sistema" class="nav-item" mat-list-item [routerLink]="'/user-systems'"
-        (click)="title = 'Usuários do sistema';sidenav.toggle()">
+        (click)="onClick('Usuários do sistema', sidenav)">
         <mat-icon>manage_accounts</mat-icon>
         <span class="text">Usuários do sistema</span>
       </a>
 
       <a matTooltip="Configurações" class="nav-item" mat-list-item [routerLink]="'/settings'"
-        (click)="title = 'Configurações';sidenav.toggle()">
+        (click)="onClick('Configurações', sidenav)">
         <mat-icon>settings</mat-icon>
         <span class="text">Configurações</span>
       </a>
 
     </mat-nav-list>
   </mat-sidenav>
+  
   <mat-sidenav-content>
     <div class="body">
       <router-outlet></router-outlet>

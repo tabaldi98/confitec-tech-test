@@ -13,6 +13,7 @@ export interface GridColumn {
     customFormat?: any;
     hideOnMobile: boolean;
     iconAction?: string;
+    filtered: boolean;
 }
 
 export interface GridAction {
@@ -26,5 +27,6 @@ export enum GridColumnType {
     Text = 1,
     Date = 2,
     Enum = 3,
-    Action = 4
+    Action = 4,
+    Number = 5,
 }

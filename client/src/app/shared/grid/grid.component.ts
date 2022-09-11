@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { GridColumn, GridConfig } from './models/grid-columns.model';
+import { GridColumn, GridColumnType, GridConfig } from './models/grid-columns.model';
 import { IGridModel } from './models/grid.model';
 import { IODataModel } from './models/odata.model';
 import { GridODataService } from './shared/grid-odata.service';
@@ -14,7 +14,6 @@ import { GridODataService } from './shared/grid-odata.service';
 })
 export class GridComponent implements OnInit {
   @Input() public config?: GridConfig;
-  @Input() public data: IGridModel[] = [];
   @Input() public router: string = '';
   @Output() public onRowChecked: EventEmitter<any> = new EventEmitter<any>();
   @Output() public onAllRowsChecked: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -29,9 +28,14 @@ export class GridComponent implements OnInit {
   skip: number = 0;
   field: string = 'id';
   direction: string = 'asc';
+  filter: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  get data(): IGridModel[] {
+    return this.dataSource.data;
+  }
 
   constructor(private gridService: GridODataService) { }
 
@@ -51,15 +55,12 @@ export class GridComponent implements OnInit {
 
           this.displayedColumns.push('check');
           this.displayedColumns.push(...this.config?.columns.map((x: GridColumn) => x.field) ?? '');
-
-          this.sort.sortChange.subscribe((sort: Sort) => {
-            this.onSortChange(sort.active, sort.direction.toString());
-          })
         }, 0);
       })
-  } 
-  
+  }
+
   refreshGrid(): void {
+    this.isLoading = true;
     this.gridService.get(this.generateQuery())
       .subscribe((data: IODataModel<any>) => {
         this.dataSource = new MatTableDataSource(data.value);
@@ -93,6 +94,9 @@ export class GridComponent implements OnInit {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    this.generateFilter(filterValue);
+    this.refreshGrid();
   }
 
   onSortChange(field: string, direction: string): void {
@@ -110,6 +114,26 @@ export class GridComponent implements OnInit {
   }
 
   generateQuery(): string {
-    return `${this.router}?count=true&top=${this.top}&skip=${this.skip}&orderby=${this.field} ${this.direction}`
+    return `${this.router}?count=true&top=${this.top}&skip=${this.skip}&orderby=${this.field} ${this.direction}${this.filter === '' ? '' : this.filter}`
+  }
+
+  generateFilter(filter: string): void {
+    let finalFilter: string = '&filter=';
+    this.config?.columns.filter((x: GridColumn) => x.filtered)
+      .forEach((x: GridColumn) => {
+        switch (x.type) {
+          case GridColumnType.LinkButton:
+          case GridColumnType.Text:
+            finalFilter += `contains(tolower(${x.field}),tolower('${filter}')) or `;
+            break;
+          case GridColumnType.Number:
+            finalFilter += `${x.field} eq ${filter}' or `;
+            break;
+          default:
+            break;
+        }
+      })
+
+    this.filter = finalFilter.slice(0, -4);
   }
 }

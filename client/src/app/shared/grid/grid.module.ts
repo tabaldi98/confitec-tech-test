@@ -13,6 +13,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
 import { MatSortModule } from "@angular/material/sort";
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     MatInputModule,
     MatSortModule,
     DragDropModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [GridComponent],
   exports: [GridComponent],

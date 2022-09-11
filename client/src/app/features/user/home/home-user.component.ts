@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { GridComponent } from 'src/app/shared/grid/grid.component';
 import { GridColumnType, GridConfig } from 'src/app/shared/grid/models/grid-columns.model';
-import { IODataModel } from 'src/app/shared/grid/models/odata.model';
+import { IGridModel } from 'src/app/shared/grid/models/grid.model';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { formatScholarity, User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
@@ -13,10 +14,11 @@ import { UserService } from '../shared/user.service';
   styleUrls: ['./home-user.component.scss'],
 })
 export class HomeUserComponent implements OnInit {
-  data: User[] = [];
   gridConfig?: GridConfig;
-  isLoading: boolean = true;
-  rowsSelected: User[] = [];
+  isLoading: boolean = false;
+  rowsSelected: IGridModel[] = [];
+
+  @ViewChild(GridComponent) grid!: GridComponent;
 
   constructor(
     public dialog: MatDialog,
@@ -53,6 +55,7 @@ export class HomeUserComponent implements OnInit {
           },
           cell: (user: User) => `${user.name}`,
           hideOnMobile: false,
+          filtered: true,
         },
         {
           field: 'surname',
@@ -61,6 +64,7 @@ export class HomeUserComponent implements OnInit {
           type: GridColumnType.Text,
           cell: (user: User) => `${user.surname}`,
           hideOnMobile: false,
+          filtered: true,
         },
         {
           field: 'mail',
@@ -69,6 +73,7 @@ export class HomeUserComponent implements OnInit {
           type: GridColumnType.Text,
           cell: (user: User) => `${user.mail}`,
           hideOnMobile: false,
+          filtered: true,
         },
         {
           field: 'birthDate',
@@ -77,6 +82,7 @@ export class HomeUserComponent implements OnInit {
           type: GridColumnType.Date,
           cell: (user: User) => `${user.birthDate}`,
           hideOnMobile: false,
+          filtered: false,
         },
         {
           field: 'scholarity',
@@ -88,6 +94,7 @@ export class HomeUserComponent implements OnInit {
             return formatScholarity(user.scholarity);
           },
           hideOnMobile: true,
+          filtered: false,
         },
         {
           field: 'actionEdit',
@@ -98,7 +105,8 @@ export class HomeUserComponent implements OnInit {
             this.editElement(user);
           },
           hideOnMobile: true,
-          iconAction: 'edit'
+          iconAction: 'edit',
+          filtered: false,
         },
         {
           field: 'actionDelete',
@@ -109,17 +117,17 @@ export class HomeUserComponent implements OnInit {
             this.deleteElement(user);
           },
           hideOnMobile: true,
-          iconAction: 'delete'
+          iconAction: 'delete',
+          filtered: false,
         },
       ]
     }
-    this.updateTable();
   }
 
   // Grid Events
   onAllRowsChecked(allChecked: boolean): void {
     if (allChecked) {
-      this.rowsSelected.push(...this.data);
+      this.rowsSelected.push(...this.grid.data);
     } else {
       this.rowsSelected = [];
     }
@@ -155,23 +163,15 @@ export class HomeUserComponent implements OnInit {
             this.userService
               .deleteUser(user.id)
               .subscribe(() => {
-                this.data = this.data.filter(p => p.id !== user.id);
+                this.grid.refreshGrid();
                 this.isLoading = false;
               });
           }
         });
   }
 
-  updateTable(): void {
-    this.userService.getAllUsers()
-      .subscribe((data: IODataModel<User>) => {
-        this.data = data.value;
-        this.isLoading = false;
-      });
-  }
-
   onDeleteCheckeds(): void {
-    if (this.rowsSelected.find((user: User) => user.checked)) {
+    if (this.rowsSelected.find((user: IGridModel) => user.checked)) {
       const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
         width: '250px',
         data: null
@@ -182,11 +182,11 @@ export class HomeUserComponent implements OnInit {
           result => {
             if (result) {
               this.isLoading = true;
-              const usersIds: number[] = this.rowsSelected.map((user: User) => user.id);
+              const usersIds: number[] = this.rowsSelected.map((user: IGridModel) => user.id);
               this.userService
                 .deleteManyUsers({ ids: usersIds })
                 .subscribe(() => {
-                  this.data = this.data.filter((p: User) => !usersIds.includes(p.id));
+                  this.grid.refreshGrid();
                   this.isLoading = false;
                 });
             }
