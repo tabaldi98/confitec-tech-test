@@ -10,10 +10,11 @@
                 {{form.get('sidebar')?.value ? 'Fechar
                 automaticamente': 'Manter aberto'}}</mat-slide-toggle>
 
-            <button mat-raised-button class="buttons" (click)="onSaveSideBar()" [disabled]="!form.get('sidebar')?.dirty">Salvar</button>
+            <button mat-raised-button class="buttons" (click)="onSaveSideBar()"
+                [disabled]="!form.get('sidebar')?.dirty">Salvar</button>
         </div>
 
-        <div class="tr-line">
+        <div class="tr-line" *ngIf="showGeneralSettings">
             <h1 class="title">Tempo de sessão</h1>
             <p class="text">Define o tempo (em minutos) de sessão dos usuários logados. Essa alteração só terá impacto
                 em novas sessões.</p>
@@ -22,7 +23,8 @@
                 <input matInput type="number" min="60" max="1440" value="60" formControlName="session">
             </mat-form-field>
 
-            <button mat-raised-button class="buttons" (click)="onSaveSession()" [disabled]="!form.get('session')?.dirty">Salvar</button>
+            <button mat-raised-button class="buttons" (click)="onSaveSession()"
+                [disabled]="!form.get('session')?.dirty">Salvar</button>
         </div>
 
     </div>

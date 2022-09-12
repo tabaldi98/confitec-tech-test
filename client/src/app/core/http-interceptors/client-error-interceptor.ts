@@ -15,6 +15,8 @@ import {
     throwError,
 } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { LocalStorageKeys } from '../local-storage/local-storage.model';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable()
 export class ClientErrorInterceptor implements HttpInterceptor {
@@ -22,7 +24,7 @@ export class ClientErrorInterceptor implements HttpInterceptor {
     private static HTTP_STATUS_FORBIDDEN: number = 403;
     private static HTTP_STATUS_NOTFOUND: number = 404;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private localStorage: LocalStorageService) { }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next
@@ -55,17 +57,17 @@ export class ClientErrorInterceptor implements HttpInterceptor {
 
     private handleUnauthorizedRequest(): void {
         try {
-            localStorage.deleteValue('token');
+            this.localStorage.deleteValue(LocalStorageKeys.Token);
         } finally {
             this.router.navigate(['/login']);
         }
     }
 
     private handleForbiddenRequest(): void {
-        this.router.navigate(['page-forbidden']);
+        this.handleUnauthorizedRequest();
     }
 
     private handleNotFoundRequest(): void {
-        this.router.navigate(['page-not-found']);
+        this.router.navigate(['/users']);
     }
 }

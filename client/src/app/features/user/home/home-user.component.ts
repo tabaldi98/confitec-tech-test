@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/authentication/authentication.service';
 import { GridComponent } from 'src/app/shared/grid/grid.component';
 import { GridColumnType, GridConfig } from 'src/app/shared/grid/models/grid-columns.model';
 import { IGridModel } from 'src/app/shared/grid/models/grid.model';
@@ -24,32 +25,18 @@ export class HomeUserComponent implements OnInit {
     public dialog: MatDialog,
     public userService: UserService,
     private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.gridConfig = {
-      actions: [
-        {
-          title: 'Deletar',
-          icon: 'delete',
-          callback: (): void => {
-            this.onDeleteCheckeds();
-          }
-        },
-        {
-          title: 'Adicionar',
-          icon: 'add',
-          callback: (): void => {
-            this.onAddUser();
-          }
-        },
-      ],
+      actions: [],
       columns: [
         {
           field: 'name',
           title: 'Nome',
           size: '30%',
-          type: GridColumnType.LinkButton,
+          type: this.authService.hasCanManageObjectsRole ? GridColumnType.LinkButton : GridColumnType.Text,
           callback: (user: User): void => {
             this.editElement(user);
           },
@@ -96,6 +83,28 @@ export class HomeUserComponent implements OnInit {
           hideOnMobile: true,
           filtered: false,
         },
+      ]
+    }
+
+    if (this.authService.hasCanManageObjectsRole) {
+      this.gridConfig.actions = [
+        {
+          title: 'Deletar',
+          icon: 'delete',
+          callback: (): void => {
+            this.onDeleteCheckeds();
+          }
+        },
+        {
+          title: 'Adicionar',
+          icon: 'add',
+          callback: (): void => {
+            this.onAddUser();
+          }
+        },
+      ];
+
+      this.gridConfig.columns.push(
         {
           field: 'actionEdit',
           title: 'Editar',
@@ -119,8 +128,7 @@ export class HomeUserComponent implements OnInit {
           hideOnMobile: true,
           iconAction: 'delete',
           filtered: false,
-        },
-      ]
+        });
     }
   }
 

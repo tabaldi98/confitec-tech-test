@@ -1,0 +1,65 @@
+<mat-spinner *ngIf="isLoading" class="spinner-centered"></mat-spinner>
+
+<app-header-back title="Editar meus dados"></app-header-back>
+
+<form *ngIf="form && !isLoading" [formGroup]="form" class="form">
+
+    <table class="table" cellspacing="0">
+        <tr>
+            <td>
+                <div class="table">
+                    <div>Login</div>
+                    <div><strong>{{data.userName}}</strong></div>
+                </div>
+            </td>
+            <td>
+                <div class="table">
+                    <div>Meu ID</div>
+                    <div><strong>{{data.id}}</strong></div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="table">
+                    <div>Data de criação</div>
+                    <div><strong>{{data.createDate | date:'short'}}</strong></div>
+                </div>
+            </td>
+            <td>
+                <div class="table">
+                    <div>Data da última atualização de senha</div>
+                    <div><strong>{{data.lastUpdatePasswordDate | date:'short'}}</strong></div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <mat-form-field class="table">
+                    <mat-label>Nome completo</mat-label>
+                    <input matInput formControlName="fullName">
+                    <mat-error *ngIf="form.get('fullName')?.hasError('required')">
+                        Nome completo não pode ser vazio
+                    </mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="table">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="mail">
+                    <mat-error *ngIf="form.get('mail')?.hasError('email') && !form.get('mail')?.hasError('required')">
+                        Email digitado está incorreto
+                    </mat-error>
+                    <mat-error *ngIf="form.get('mail')?.hasError('required')">
+                        Email não pode ser vazio
+                    </mat-error>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+    <app-save-buttons [form]="form" (onSaveClick)="save()">
+    </app-save-buttons>
+</form>

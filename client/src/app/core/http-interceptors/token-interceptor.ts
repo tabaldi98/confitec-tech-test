@@ -6,15 +6,17 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LocalStorageKeys } from '../local-storage/local-storage.model';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-    constructor() { }
+    constructor(private localStorage: LocalStorageService) { }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         request = request.clone({
             setHeaders: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                Authorization: `Bearer ${this.localStorage.getValue(LocalStorageKeys.Token)}`,
             },
         });
 

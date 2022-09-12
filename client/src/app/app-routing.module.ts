@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './core/authentication/auth-guard.service';
+import { HeadderResolveService as HeaderResolveService } from './shared/header/shared/header-resolve.service';
 
 const routes: Routes = [
   {
@@ -19,13 +20,31 @@ const routes: Routes = [
   {
     path: 'users',
     loadChildren: () => import('./features/user/user.module').then(x => x.UserModule),
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService],
+    data: {
+      title: 'Usuários'
+    },
+    resolve: [HeaderResolveService]
   },
   {
     path: 'settings',
     loadChildren: () => import('./features/settings/settings.module').then(x => x.SettingsModule),
     canActivate: [AuthGuardService],
+    data: {
+      title: 'Configurações'
+    },
+    resolve: [HeaderResolveService]
   },
+  {
+    path: 'my-account',
+    loadChildren: () => import('./features/my-account/my-account.module').then(x => x.MyAccountModule),
+    canActivate: [AuthGuardService],
+    data: {
+      title: 'Minha conta'
+    },
+    resolve: [HeaderResolveService]
+  },
+  { path: '**', redirectTo: 'users', pathMatch: 'full' },
 ];
 
 @NgModule({

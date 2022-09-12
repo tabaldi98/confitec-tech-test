@@ -25,35 +25,6 @@ namespace Confitec.Technical.Test.Tests.Api.V1
         }
 
         [Test]
-        public void Should_CheckAttributes_When_GetAllUsers()
-        {
-            //Assert
-            typeof(UserController)
-               .GetMethod(nameof(UserController.GetAllAsync))
-               .Should()
-               .BeDecoratedWith<HttpGetAttribute>().And
-               .BeDecoratedWith<RouteAttribute>(p => p.Template.Equals(""));
-        }
-
-        [Test]
-        public async Task Should_ReturnOK_When_GetAllUsers()
-        {
-            //Arrange
-            _mockMediator
-                .SetupVerifiable(p => p.Send(It.IsAny<UserRetrieveODataQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new List<UserRetrieveODataModel>());
-
-            // Act
-            var result = await _controller.GetAllAsync();
-
-            // Assert
-            var response = result.Should().BeOfType<OkObjectResult>().Subject.Value;
-            response.Should().BeOfType<List<UserRetrieveODataModel>>();
-
-            CacheMockExtensions.VerifyAllCachedMocks();
-        }
-
-        [Test]
         public void Should_CheckAttributes_When_CreateUser()
         {
             //Assert

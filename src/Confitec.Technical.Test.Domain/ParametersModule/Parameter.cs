@@ -28,7 +28,6 @@
         {
             return new List<Parameter>()
             {
-                new Parameter(ParametersKeys.KEY_SIDE_BAR_TYPE, "1") { ID = ParametersKeys.ID_SIDE_BAR_TYPE },
                 new Parameter(ParametersKeys.KEY_SESSION_TIME, "120") { ID = ParametersKeys.ID_SESSION_TIME },
             };
         }

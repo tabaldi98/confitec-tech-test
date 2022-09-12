@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-save-buttons',
@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
 })
 export class SaveButtonsComponent {
   @Input() public form?: FormGroup
+  @Input() public showSaveAndCreate: boolean = false;
   @Output() public onSaveClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() public onSaveAndCreateClick: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   onSave(): void {
@@ -24,6 +25,6 @@ export class SaveButtonsComponent {
   }
 
   onCancel(): void {
-    this.router.navigate(['../']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }

@@ -7,6 +7,9 @@
     <button mat-icon-button class="account" [matMenuTriggerFor]="menu" [matTooltip]="fullname"> {{fullname}}</button>
     <mat-icon class="account-icon" [matMenuTriggerFor]="menu" [matTooltip]="fullname">account_circle</mat-icon>
     <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="'/my-account'">
+        <mat-icon>account_circle</mat-icon> Minha conta
+      </button>
       <button mat-menu-item (click)="onExit()">
         <mat-icon>logout</mat-icon> Sair
       </button>
@@ -24,12 +27,6 @@
         <span class="text">Usuários</span>
       </a>
 
-      <a matTooltip="Criar usuário" class="nav-item" mat-list-item [routerLink]="'/users/create'"
-        (click)="onClick('Usuários > Criar', sidenav)">
-        <mat-icon>person_add</mat-icon>
-        <span class="text">Criar usuário</span>
-      </a>
-
       <a matTooltip="Usuários do sistema" class="nav-item" mat-list-item [routerLink]="'/user-systems'"
         (click)="onClick('Usuários do sistema', sidenav)">
         <mat-icon>manage_accounts</mat-icon>
@@ -42,9 +39,15 @@
         <span class="text">Configurações</span>
       </a>
 
+      <a matTooltip="Minha conta" class="nav-item" mat-list-item [routerLink]="'/my-account'"
+        (click)="onClick('Minha conta', sidenav)">
+        <mat-icon>account_circle</mat-icon>
+        <span class="text">Minha conta</span>
+      </a>
+
     </mat-nav-list>
   </mat-sidenav>
-  
+
   <mat-sidenav-content>
     <div class="body">
       <router-outlet></router-outlet>

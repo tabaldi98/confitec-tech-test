@@ -51,16 +51,9 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ID = 1,
-                            Key = "SIDE_BAR_TYPE",
-                            LastDateUpdated = new DateTime(2022, 9, 9, 14, 24, 21, 285, DateTimeKind.Local).AddTicks(8400),
-                            Value = "1"
-                        },
-                        new
-                        {
                             ID = 2,
                             Key = "SESSION_TIME",
-                            LastDateUpdated = new DateTime(2022, 9, 9, 14, 24, 21, 285, DateTimeKind.Local).AddTicks(8403),
+                            LastDateUpdated = new DateTime(2022, 9, 12, 10, 38, 27, 473, DateTimeKind.Local).AddTicks(9135),
                             Value = "120"
                         });
                 });
@@ -94,6 +87,49 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                     b.ToTable("RecoveryPassword", "dbo");
                 });
 
+            modelBuilder.Entity("Confitec.Technical.Test.Domain.SystemUserModule.Permissions.Permission", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("SystemUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SystemUserId");
+
+                    b.ToTable("SystemUserPermissions", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Role = "CanManageSystemUsers",
+                            SystemUserId = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Role = "CanManageObjects",
+                            SystemUserId = 1
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Role = "CanChangeGeneralSettings",
+                            SystemUserId = 1
+                        });
+                });
+
             modelBuilder.Entity("Confitec.Technical.Test.Domain.SystemUserModule.SystemUser", b =>
                 {
                     b.Property<int>("ID")
@@ -111,6 +147,9 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateTime?>("LastLoginDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime?>("LastUpdatePasswordDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Mail")
@@ -136,8 +175,9 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                         new
                         {
                             ID = 1,
-                            CreateDate = new DateTime(2022, 9, 9, 14, 24, 21, 285, DateTimeKind.Local).AddTicks(8292),
+                            CreateDate = new DateTime(2022, 9, 12, 10, 38, 27, 473, DateTimeKind.Local).AddTicks(9029),
                             FullName = "Administrador do Sistema",
+                            LastUpdatePasswordDate = new DateTime(2022, 9, 12, 10, 38, 27, 473, DateTimeKind.Local).AddTicks(9036),
                             Mail = "andersonandi_t@hotmail.com",
                             Password = "123",
                             UserName = "admin"
@@ -189,8 +229,21 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                     b.Navigation("SystemUser");
                 });
 
+            modelBuilder.Entity("Confitec.Technical.Test.Domain.SystemUserModule.Permissions.Permission", b =>
+                {
+                    b.HasOne("Confitec.Technical.Test.Domain.SystemUserModule.SystemUser", "SystemUser")
+                        .WithMany("Permissions")
+                        .HasForeignKey("SystemUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SystemUser");
+                });
+
             modelBuilder.Entity("Confitec.Technical.Test.Domain.SystemUserModule.SystemUser", b =>
                 {
+                    b.Navigation("Permissions");
+
                     b.Navigation("RecoveryPasswords");
                 });
 #pragma warning restore 612, 618

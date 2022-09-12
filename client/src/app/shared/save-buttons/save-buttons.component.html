@@ -2,6 +2,6 @@
 <footer class="actions">
     <mat-divider class="divider"></mat-divider>
     <button mat-raised-button class="buttons cancel-button" (click)="onCancel()">Cancelar</button>
-    <button *ngIf="form?.get('id')?.value == undefined" mat-raised-button type="reset" class="buttons secundary-button" (click)="onSaveAndCreate()">Salvar & Criar</button>
+    <button *ngIf="showSaveAndCreate" mat-raised-button type="reset" class="buttons secundary-button" (click)="onSaveAndCreate()">Salvar & Criar</button>
     <button mat-raised-button class="buttons primary-button" (click)="onSave()">Salvar</button>
 </footer>

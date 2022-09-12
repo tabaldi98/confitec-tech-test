@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/authentication/authentication.service';
 import { LocalStorageKeys } from 'src/app/core/local-storage/local-storage.model';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
+import { HeaderService } from './shared/header.service';
 
 @Component({
   selector: 'app-header',
@@ -10,19 +13,27 @@ import { LocalStorageService } from 'src/app/core/local-storage/local-storage.se
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  title: string = 'Usuários';
+  panelOpenState = false;
+  title: string = '';
   fullname: string = '';
   @ViewChild('sidenav') sidenav?: MatSidenav;
   mode!: MatDrawerMode;
 
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
   constructor(
     private authService: AuthService,
     private localStorageService: LocalStorageService,
+    private headerService: HeaderService
   ) { }
 
   ngOnInit(): void {
     this.fullname = this.authService.token.fullname;
     this.mode = this.localStorageService.getBoolValue(LocalStorageKeys.SideNav) ? 'over' : 'side';
+
+    this.headerService.onRouteChanged
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((title: string) => this.title = title);
   }
 
   onExit(): void {

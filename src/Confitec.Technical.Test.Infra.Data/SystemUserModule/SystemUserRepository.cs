@@ -1,6 +1,7 @@
 ﻿using Confitec.Technical.Test.Domain.Contracts.Specification;
 using Confitec.Technical.Test.Domain.SystemUserModule;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Confitec.Technical.Test.Infra.Data.UserModule
 {
@@ -13,11 +14,16 @@ namespace Confitec.Technical.Test.Infra.Data.UserModule
             _context = technicalTestContext;
         }
 
-        public Task<SystemUser?> GetAsync(ISpecification<SystemUser> specification, bool tracking = false)
+        public Task<SystemUser?> GetAsync(ISpecification<SystemUser> specification, bool tracking = false, params Expression<Func<SystemUser, object>>[] includeExpressions)
         {
-            return tracking ?
-                 _context.SystemUsers.FirstOrDefaultAsync(specification.SatisfiedBy()) :
-                 _context.SystemUsers.AsNoTracking().FirstOrDefaultAsync(specification.SatisfiedBy());
+            var users = tracking ? _context.SystemUsers : _context.SystemUsers.AsNoTracking();
+
+            if (includeExpressions.Any())
+            {
+                users = includeExpressions.Aggregate<Expression<Func<SystemUser, object>>, IQueryable<SystemUser>>(_context.SystemUsers, (current, expression) => current.Include(expression));
+            }
+
+            return users.FirstOrDefaultAsync(specification.SatisfiedBy());
         }
 
         public Task<bool> AnyAsync(ISpecification<SystemUser> specification)

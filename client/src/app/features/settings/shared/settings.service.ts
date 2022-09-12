@@ -14,10 +14,6 @@ export class SettingsService {
     private http: HttpClient,
     private snackBarService: SnackBarService) { }
 
-  get(id: number): Observable<ISetting> {
-    return this.http.get<ISetting>(`${this.settingApiUrl}/${id}`);
-  }
-
   getAll(): Observable<ISetting[]> {
     return this.http.get<ISetting[]>(this.settingApiUrl);
   }

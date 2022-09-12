@@ -51,9 +51,12 @@ namespace Confitec.Technical.Test.Domain.RecoveryPasswordModule
                 return false;
             }
 
-            IsUsed = true;
-
             return true;
+        }
+
+        public void SetAsUsed()
+        {
+            IsUsed = true;
         }
     }
 }

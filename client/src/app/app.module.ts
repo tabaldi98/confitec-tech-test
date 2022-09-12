@@ -33,6 +33,11 @@ import { AuthGuardService } from './core/authentication/auth-guard.service';
 import { LocalStorageService } from './core/local-storage/local-storage.service';
 import { SnackBarService } from './core/snack-bar/snack-bar.service';
 import { GridODataService } from './shared/grid/shared/grid-odata.service';
+import { HeaderService } from './shared/header/shared/header.service';
+import { HeadderResolveService } from './shared/header/shared/header-resolve.service';
+import { NotAllowManageObjectsGuardService } from './core/guards/not-allow-manage-objects-guard.service';
+import { NotAllowManageSystemUsersGuardService } from './core/guards/not-allow-manage-system-users-guard.service';
+import { NotAllowManageGeneralSettingsGuardService } from './core/guards/not-allow-manage-general-settings-guard.service';
 
 @NgModule({
   declarations: [
@@ -78,10 +83,17 @@ import { GridODataService } from './shared/grid/shared/grid-odata.service';
       useClass: ClientErrorInterceptor,
       multi: true,
     },
-    AuthGuardService,
     LocalStorageService,
     SnackBarService,
-    GridODataService
+    GridODataService,
+    HeaderService,
+    HeadderResolveService,
+
+    // Auth-Guards
+    AuthGuardService,
+    NotAllowManageObjectsGuardService,
+    NotAllowManageSystemUsersGuardService,
+    NotAllowManageGeneralSettingsGuardService,
   ],
   bootstrap: [AppComponent]
 })

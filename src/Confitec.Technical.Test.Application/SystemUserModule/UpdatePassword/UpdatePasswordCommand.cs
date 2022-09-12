@@ -3,17 +3,18 @@ using MediatR;
 
 namespace Confitec.Technical.Test.Application.SystemUserModule.UpdatePassword
 {
-    public class SystemUserUpdatePasswordCommand : IRequest<bool>
+    public class UpdatePasswordCommand : IRequest<bool>
     {
-        public string UserName { get; set; }
+        public int UserId { get; set; }
+        public string CurrentPassword { get; set; }
         public string Password { get; set; }
     }
 
-    public class SystemUserUpdatePasswordCommandValidator : AbstractValidator<SystemUserUpdatePasswordCommand>
+    public class UpdatePasswordValidator : AbstractValidator<UpdatePasswordCommand>
     {
-        public SystemUserUpdatePasswordCommandValidator()
+        public UpdatePasswordValidator()
         {
-            RuleFor(p => p.UserName)
+            RuleFor(p => p.CurrentPassword)
                 .NotEmpty()
                 .MaximumLength(255);
 

@@ -1,4 +1,5 @@
 ﻿using Confitec.Technical.Test.Application.SystemUserModule.Create;
+using Confitec.Technical.Test.Infra.Crosscutting.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Confitec.Technical.Test.Api.Controllers.V1
 {
     [ApiController]
-    [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SystemUserController : Controller
     {
@@ -17,6 +17,7 @@ namespace Confitec.Technical.Test.Api.Controllers.V1
             _mediator = mediator;
         }
 
+        [Authorize(Roles = Roles.CanManageSystemUsers)]
         [HttpPost]
         [Route("")]
         [Produces("application/json")]

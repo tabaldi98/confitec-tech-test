@@ -18,6 +18,7 @@ namespace Confitec.Technical.Test.Infra.Data.UserModule
             builder.Property(p => p.Mail).HasColumnType("varchar").HasMaxLength(255).IsRequired(true);
             builder.Property(p => p.CreateDate).HasColumnType("datetime").IsRequired(true);
             builder.Property(p => p.LastLoginDate).HasColumnType("datetime").IsRequired(false);
+            builder.Property(p => p.LastUpdatePasswordDate).HasColumnType("datetime").IsRequired(false);
         }
     }
 }

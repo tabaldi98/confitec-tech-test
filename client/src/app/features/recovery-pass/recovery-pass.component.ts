@@ -82,9 +82,10 @@ export class RecoveryPassComponent implements OnInit {
       return;
     }
 
-    this.authService.updatePassword({
+    this.authService.updatePasswordOnRecovery({
       userName: this.formFirstStep.get('login')?.value,
-      password: pass
+      password: pass,
+      code: this.formSecondStep.get('code')?.value
     })
       .pipe(take(1))
       .subscribe(() => {

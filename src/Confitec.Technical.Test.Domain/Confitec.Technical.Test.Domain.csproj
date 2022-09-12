@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Confitec.Technical.Test.Domain.Contracts\Confitec.Technical.Test.Domain.Contracts.csproj" />
+    <ProjectReference Include="..\Confitec.Technical.Test.Infra.Crosscutting\Confitec.Technical.Test.Infra.Crosscutting.csproj" />
   </ItemGroup>
 
 </Project>

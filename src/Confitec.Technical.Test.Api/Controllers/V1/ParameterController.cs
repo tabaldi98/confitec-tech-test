@@ -1,5 +1,6 @@
 ﻿using Confitec.Technical.Test.Application.ParametersModule.Retrieve;
 using Confitec.Technical.Test.Application.ParametersModule.Update;
+using Confitec.Technical.Test.Infra.Crosscutting.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Confitec.Technical.Test.Api.Controllers.V1
 {
     [ApiController]
-    [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class ParameterController : Controller
     {
@@ -18,14 +18,7 @@ namespace Confitec.Technical.Test.Api.Controllers.V1
             _mediator = mediator;
         }
 
-        [HttpGet]
-        [Route("{id:int}")]
-        [Produces("application/json")]
-        public async Task<IActionResult> GetAsync(int id)
-        {
-            return Ok(await _mediator.Send(new ParameterRetrieveCommand() { ID = id }));
-        }
-
+        [Authorize(Roles = Roles.CanChangeGeneralSettings)]
         [HttpGet]
         [Route("")]
         [Produces("application/json")]
@@ -34,6 +27,7 @@ namespace Confitec.Technical.Test.Api.Controllers.V1
             return Ok(await _mediator.Send(new ParameterRetrieveAllCommand()));
         }
 
+        [Authorize(Roles = Roles.CanChangeGeneralSettings)]
         [HttpPut]
         [Route("")]
         [Produces("application/json")]

@@ -1,0 +1,23 @@
+<mat-spinner *ngIf="isLoading" class="spinner-centered"></mat-spinner>
+
+<span *ngIf="!isLoading">
+    <div class="table" cellspacing="0">
+        <div class="tr-line">
+            <h1 class="title">Meus dados</h1>
+            <p class="text">Alterar meus dados pessoais.</p>
+            <button mat-raised-button class="buttons" [routerLink]="'./my-data'">Editar</button>
+        </div>
+
+        <div class="tr-line">
+            <h1 class="title">Senha</h1>
+            <p class="text">Sua ultima alteração de senha foi feita em: <strong>{{data.lastUpdatePasswordDate | date:'short'}}</strong>.</p>
+            <button mat-raised-button class="buttons" [routerLink]="'./change-password'">Editar</button>
+        </div>
+
+        <div class="tr-line">
+            <h1 class="title">Permissões</h1>
+            <p class="text">Suas permissões são de: [<strong>{{permissions}}</strong>].</p>
+        </div>
+
+    </div>
+</span>

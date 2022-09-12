@@ -1,6 +1,7 @@
 ﻿using Confitec.Technical.Test.Application.ParametersModule.Retrieve;
 using Confitec.Technical.Test.Domain.ParametersModule;
 using Confitec.Technical.Test.Domain.SystemUserModule;
+using Confitec.Technical.Test.Domain.SystemUserModule.Permissions;
 using Confitec.Technical.Test.Infra.Crosscutting.Auth;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -29,10 +30,11 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Login
 
         public async Task<SystemUserLoginModel> Handle(SystemUserLoginCommand request, CancellationToken cancellationToken)
         {
-            var systemUser = await _systemUserRepository.GetAsync(SystemUserSpecification.ByUserNameOrMail(request.Login));
+            var systemUser = await _systemUserRepository.GetAsync(SystemUserSpecification.ByUserNameOrMail(request.Login), false, p => p.Permissions);
             if (systemUser == null) { throw new InvalidDataException("User not found!"); }
 
             systemUser.DoLogin(request.Password);
+            await _systemUserRepository.UpdateAsync(systemUser);
 
             var identity = GetClaimsIdentity(systemUser);
 
@@ -59,7 +61,7 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Login
 
         private ClaimsIdentity GetClaimsIdentity(SystemUser systemUser)
         {
-            return new ClaimsIdentity
+            var claims = new ClaimsIdentity
             (
                 new GenericIdentity(systemUser.UserName),
                 new[] {
@@ -68,6 +70,13 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.Login
                     new Claim("fullname", systemUser.FullName),
                 }
             );
+
+            foreach (var permission in systemUser.Permissions)
+            {
+                claims.AddClaim(new Claim(ClaimTypes.Role, permission.Role));
+            }
+
+            return claims;
         }
 
         private long CalculateExpiresIn(DateTime securityTokenValidFrom)

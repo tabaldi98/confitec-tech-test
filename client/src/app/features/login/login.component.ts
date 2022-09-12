@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { IAuthenticationModel } from 'src/app/core/authentication/authentication.model';
 import { AuthService } from 'src/app/core/authentication/authentication.service';
+import { LocalStorageKeys } from 'src/app/core/local-storage/local-storage.model';
+import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,10 @@ export class LoginComponent implements OnInit {
   isLoading: boolean = false;
   hasErrorOnLogin: boolean = false;
 
-  constructor(public authService: AuthService, private router: Router) { }
+  constructor(
+    public authService: AuthService, 
+    private router: Router,
+    private localStorage: LocalStorageService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -35,7 +40,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (result: IAuthenticationModel): void => {
           this.hasErrorOnLogin = false;
-          localStorage.setItem('token', result.accessToken);
+          this.localStorage.setValue(LocalStorageKeys.Token, result.accessToken);
           this.router.navigate(['./'])
             .then(() => {
               window.location.reload();

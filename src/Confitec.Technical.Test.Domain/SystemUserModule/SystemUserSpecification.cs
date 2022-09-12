@@ -4,6 +4,11 @@ namespace Confitec.Technical.Test.Domain.SystemUserModule
 {
     public static class SystemUserSpecification
     {
+        public static DirectSpecification<SystemUser> ById(int id)
+        {
+            return new DirectSpecification<SystemUser>(p => p.ID == id);
+        }
+
         public static DirectSpecification<SystemUser> ByUserNameOrMail(string userNameOrMail)
         {
             return new DirectSpecification<SystemUser>(p =>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-back',
@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 export class HeaderBackComponent {
   @Input() public title?: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   onBack(): void {
-    this.router.navigate(['../']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }
