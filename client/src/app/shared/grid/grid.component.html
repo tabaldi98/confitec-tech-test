@@ -98,6 +98,17 @@
                             </button>
                         </td>
                     </ng-container>
+
+                    <!--Bit icon -->
+                    <ng-container *ngSwitchCase="6" [matColumnDef]="column.field">
+                        <th [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-header-cell *matHeaderCellDef
+                            mat-sort-header [width]="column.size">
+                            <strong style="width: 100%;">{{column.title}}</strong>
+                        </th>
+                            <td [matTooltip]="column.customFormat(element)" class="td-content"
+                            [ngClass]="{ 'hide-on-mobile' : column.hideOnMobile }" mat-cell *matCellDef="let element">
+                            <mat-icon color="primary">{{column.cell(element) === 'true' ? 'check_circle' : 'do_not_disturb_on'}}</mat-icon></td>
+                    </ng-container>
                 </span>
             </span>
 

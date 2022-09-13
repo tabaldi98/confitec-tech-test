@@ -1,0 +1,66 @@
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<div id="g_id_onload" data-client_id="1006546898924-kn2qonlojh05ju308utsr8v905a98pv8.apps.googleusercontent.com"
+    data-login_uri="http://127.0.0.1:4201/api/v1/Login/Token" data-auto_prompt="false">
+</div>
+<div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+    data-shape="rectangular" data-logo_alignment="left">
+</div>
+
+
+<div class="background">
+    <div class="container">
+        <form [formGroup]="form">
+            <table class="table" cellspacing="0">
+                <tr>
+                    <td class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Login</mat-label>
+                            <input matInput formControlName="username">
+                            <mat-error *ngIf="form.get('username')?.hasError('required')">
+                                Login não pode ser vazio
+                            </mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Nome completo</mat-label>
+                            <input matInput formControlName="fullname">
+                            <mat-error *ngIf="form.get('fullname')?.hasError('required')">
+                                Nome completo não pode ser vazio
+                            </mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>E-mail</mat-label>
+                            <input matInput formControlName="mail">
+                            <mat-error *ngIf="form.get('mail')?.hasError('required')">
+                                E-mail não pode ser vazia
+                            </mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr> 
+                 <tr>
+                    <td class="td-padding">
+                        <mat-form-field class="table">
+                            <mat-label>Senha</mat-label>
+                            <input matInput type="password" formControlName="pass">
+                            <mat-error *ngIf="form.get('pass')?.hasError('required')">
+                                Senha não pode ser vazia
+                            </mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-padding">
+                        <button mat-raised-button class="buttons primary-button" (click)="onRegister()" [disabled]="!form.valid">Cadastrar</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

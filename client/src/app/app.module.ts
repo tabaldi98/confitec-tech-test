@@ -38,6 +38,7 @@ import { HeadderResolveService } from './shared/header/shared/header-resolve.ser
 import { NotAllowManageObjectsGuardService } from './core/guards/not-allow-manage-objects-guard.service';
 import { NotAllowManageSystemUsersGuardService } from './core/guards/not-allow-manage-system-users-guard.service';
 import { NotAllowManageGeneralSettingsGuardService } from './core/guards/not-allow-manage-general-settings-guard.service';
+import { SystemUserService } from './core/authentication/system-user.service';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { NotAllowManageGeneralSettingsGuardService } from './core/guards/not-all
     GridODataService,
     HeaderService,
     HeadderResolveService,
+    SystemUserService,
 
     // Auth-Guards
     AuthGuardService,

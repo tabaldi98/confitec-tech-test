@@ -38,8 +38,8 @@
 
                 <tr>
                     <td>
-                        <a mat-flat-button class="buttons link-button" (click)="onRecoveryPass()">Esqueci minha senha</a>
-                        <a mat-flat-button class="buttons link-button">Registrar-se</a>
+                        <a mat-flat-button class="buttons link-button" [routerLink]="['/recovery-password']">Esqueci minha senha</a>
+                        <a mat-flat-button class="buttons link-button" [routerLink]="['/register']" routerLinkActive="router-link-active">Registrar-se</a>
                     </td>
                 </tr>
             </table>

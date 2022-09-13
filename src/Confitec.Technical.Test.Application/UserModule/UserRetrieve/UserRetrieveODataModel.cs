@@ -5,8 +5,10 @@ using System.Linq.Expressions;
 
 namespace Confitec.Technical.Test.Application.UserModule.UserRetrieve
 {
-    public class UserRetrieveODataModel : ODataModelBase
+    public class UserRetrieveODataModel : IODataModelBase
     {
+        public int ID { get; set; }
+        public bool Checked { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Mail { get; set; }

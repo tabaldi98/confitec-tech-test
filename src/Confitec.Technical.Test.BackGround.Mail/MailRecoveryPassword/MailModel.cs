@@ -1,4 +1,4 @@
-﻿namespace Confitec.Technical.Test.BackGround.Mail
+﻿namespace Confitec.Technical.Test.BackGround.Mail.MailRecoveryPassword
 {
     public class MailModel
     {

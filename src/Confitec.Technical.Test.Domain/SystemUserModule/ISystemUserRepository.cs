@@ -1,4 +1,5 @@
-﻿using Confitec.Technical.Test.Domain.Contracts.Specification;
+﻿using Confitec.Technical.Test.Domain.Contracts.Mappers;
+using Confitec.Technical.Test.Domain.Contracts.Specification;
 using System.Linq.Expressions;
 
 namespace Confitec.Technical.Test.Domain.SystemUserModule
@@ -9,5 +10,7 @@ namespace Confitec.Technical.Test.Domain.SystemUserModule
         Task<bool> AnyAsync(ISpecification<SystemUser> specification);
         Task<SystemUser> CreateAsync(SystemUser user);
         Task<SystemUser> UpdateAsync(SystemUser user);
+        IQueryable<TResult> RetrieveOData<TResult>(IHaveMapper<SystemUser, TResult> mapper);
+        Task<bool> DeleteManyAsync(int[] ids);
     }
 }

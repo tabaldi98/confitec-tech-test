@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   fullname: string = '';
   @ViewChild('sidenav') sidenav?: MatSidenav;
   mode!: MatDrawerMode;
+  hasSystemUserPermission: boolean = false;
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.fullname = this.authService.token.fullname;
     this.mode = this.localStorageService.getBoolValue(LocalStorageKeys.SideNav) ? 'over' : 'side';
+    this.hasSystemUserPermission = this.authService.hasCanManageSystemUsersRole;
 
     this.headerService.onRouteChanged
       .pipe(takeUntil(this.ngUnsubscribe))

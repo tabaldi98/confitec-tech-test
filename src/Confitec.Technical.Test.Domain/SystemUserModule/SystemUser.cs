@@ -12,6 +12,7 @@ namespace Confitec.Technical.Test.Domain.SystemUserModule
         public DateTime CreateDate { get; private set; }
         public DateTime? LastLoginDate { get; private set; }
         public DateTime? LastUpdatePasswordDate { get; private set; }
+        public bool IsAproved { get; private set; }
 
         private readonly List<RecoveryPassword> _recoveryPasswords;
         public virtual ICollection<RecoveryPassword> RecoveryPasswords => _recoveryPasswords;
@@ -25,6 +26,7 @@ namespace Confitec.Technical.Test.Domain.SystemUserModule
             _permissions = new List<Permission>();
             CreateDate = DateTime.Now;
             LastUpdatePasswordDate = DateTime.Now;
+            IsAproved = false;
         }
 
         public SystemUser(string fullName, string userName, string password, string mail)
@@ -35,15 +37,24 @@ namespace Confitec.Technical.Test.Domain.SystemUserModule
             Password = password;
         }
 
-
         public void UpdateBasicInfo(string fullName, string mail)
         {
             FullName = fullName;
             Mail = mail;
         }
 
+        public void AddPermission(Permission permission)
+        {
+            _permissions.Add(permission);
+        }
+
         public void DoLogin(string password)
         {
+            if (!IsAproved)
+            {
+                throw new InvalidDataException("User not aproved!");
+            }
+
             if (!Password.Equals(password))
             {
                 throw new InvalidDataException("Password not match!");
@@ -69,11 +80,17 @@ namespace Confitec.Technical.Test.Domain.SystemUserModule
             LastUpdatePasswordDate = DateTime.Now;
         }
 
+        public void SetAproved(bool isAproved)
+        {
+            IsAproved = isAproved;
+        }
+
         public static SystemUser DefaultUser()
         {
             return new SystemUser("Administrador do Sistema", "admin", "123", "andersonandi_t@hotmail.com")
             {
-                ID = 1
+                ID = 1,
+                IsAproved = true,
             };
         }
     }

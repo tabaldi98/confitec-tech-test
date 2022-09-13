@@ -19,6 +19,7 @@ namespace Confitec.Technical.Test.Infra.Data.UserModule
             builder.Property(p => p.CreateDate).HasColumnType("datetime").IsRequired(true);
             builder.Property(p => p.LastLoginDate).HasColumnType("datetime").IsRequired(false);
             builder.Property(p => p.LastUpdatePasswordDate).HasColumnType("datetime").IsRequired(false);
+            builder.Property(p => p.IsAproved).HasColumnType("bit").IsRequired(true);
         }
     }
 }

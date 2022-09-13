@@ -1,8 +1,8 @@
 ﻿namespace Confitec.Technical.Test.Application
 {
-    public abstract class ODataModelBase
+    public interface IODataModelBase
     {
-        public int ID { get; set; }
-        public bool Checked { get; set; }
+        int ID { get; }
+        bool Checked { get; }
     }
 }

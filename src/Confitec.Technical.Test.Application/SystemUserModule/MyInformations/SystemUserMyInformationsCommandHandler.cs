@@ -27,7 +27,8 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.MyInformations
                 LastUpdatePasswordDate = systemUser.LastUpdatePasswordDate,
                 Mail = systemUser.Mail,
                 UserName = systemUser.UserName,
-                Permissions = permissions
+                Permissions = permissions,
+                IsAproved = systemUser.IsAproved,
             };
         }
     }

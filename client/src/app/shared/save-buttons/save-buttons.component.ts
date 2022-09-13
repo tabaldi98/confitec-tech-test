@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SaveButtonsComponent {
   @Input() public form?: FormGroup
   @Input() public showSaveAndCreate: boolean = false;
+  @Input() public disabledSaveBtn: boolean = false;
   @Output() public onSaveClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() public onSaveAndCreateClick: EventEmitter<any> = new EventEmitter<any>();
 

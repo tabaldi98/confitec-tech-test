@@ -9,7 +9,16 @@ namespace Confitec.Technical.Test.Api.Extensions
         {
             builder.Services.AddHealthChecks()
                 .AddSqlServer(builder.Configuration.GetConnectionString("TechnicalTest"))
-                .AddRabbitMQ(builder.Configuration.GetConnectionString("RabbitMq"), name: "RabbitMq");
+                .AddRabbitMQ(a =>
+                {
+                    return new ConnectionFactory()
+                    {
+                        HostName = builder.Configuration.GetSection("RabbitMq").GetValue<string>("HostName"),
+                        Port = builder.Configuration.GetSection("RabbitMq").GetValue<int>("Port"),
+                        UserName = builder.Configuration.GetSection("RabbitMq").GetValue<string>("UserName"),
+                        Password = builder.Configuration.GetSection("RabbitMq").GetValue<string>("Password"),
+                    };
+                });
         }
     }
 }

@@ -13,7 +13,6 @@ import { allUserScholarity, formatScholarity, User, UserScholarity } from '../sh
   styleUrls: ['./user-view.component.scss']
 })
 export class UserViewComponent implements OnInit {
-
   maxDate: Date = new Date();
   form!: FormGroup;
   scholarities: UserScholarity[] = allUserScholarity;

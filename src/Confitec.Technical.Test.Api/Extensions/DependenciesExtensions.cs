@@ -1,4 +1,5 @@
-﻿using Confitec.Technical.Test.BackGround.Mail;
+﻿using Confitec.Technical.Test.BackGround.Mail.MailRecoveryPassword;
+using Confitec.Technical.Test.BackGround.Mail.MailSystemUserCreated;
 using Confitec.Technical.Test.Domain.ParametersModule;
 using Confitec.Technical.Test.Domain.RecoveryPasswordModule;
 using Confitec.Technical.Test.Domain.SystemUserModule;
@@ -20,13 +21,14 @@ namespace Confitec.Technical.Test.Api.Extensions
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISystemUserRepository, SystemUserRepository>();
-            services.AddScoped<IParameterRepository, ParameterRepository>(); 
+            services.AddScoped<IParameterRepository, ParameterRepository>();
             services.AddScoped<IRecoveryPasswordRepository, RecoveryPasswordRepository>();
 
-            services.AddSingleton<IRabbitMqConnector, RabbitMqConnector>(); 
+            services.AddSingleton<IRabbitMqConnector, RabbitMqConnector>();
             services.AddSingleton<IMailSender, MailSender>();
 
-            services.AddHostedService<MailSenderBackgroundService>();
+            services.AddHostedService<MailRecoveryPasswordBackgroundService>();
+            services.AddHostedService<MailSystemUserCreatedBackgroundService>();
         }
     }
 }

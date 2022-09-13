@@ -14,7 +14,7 @@ export class MyAccountComponent implements OnInit {
   isLoading: boolean = true;
 
   get permissions(): string {
-    let p: string = '';
+    let p: string = 'Acessar o portal, ';
     this.data?.permissions.forEach((permission: string) => {
       switch (permission) {
         case RoleNameCanManageObjects:

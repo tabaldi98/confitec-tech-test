@@ -12,6 +12,13 @@ namespace Confitec.Technical.Test.Domain.SystemUserModule.Permissions
         public Permission()
         { }
 
+        public Permission(string role, SystemUser systemUser)
+        {
+            Role = role;
+            SystemUserId = systemUser.ID;
+            SystemUser = systemUser;
+        }
+
         public static IList<Permission> AllPermissions()
         {
             return new List<Permission>()

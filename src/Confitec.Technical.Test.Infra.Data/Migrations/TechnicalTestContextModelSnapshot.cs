@@ -53,7 +53,7 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                         {
                             ID = 2,
                             Key = "SESSION_TIME",
-                            LastDateUpdated = new DateTime(2022, 9, 12, 10, 38, 27, 473, DateTimeKind.Local).AddTicks(9135),
+                            LastDateUpdated = new DateTime(2022, 9, 12, 18, 16, 17, 551, DateTimeKind.Local).AddTicks(4747),
                             Value = "120"
                         });
                 });
@@ -146,6 +146,9 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
+                    b.Property<bool>("IsAproved")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("LastLoginDate")
                         .HasColumnType("datetime");
 
@@ -175,9 +178,10 @@ namespace Confitec.Technical.Test.Infra.Data.Migrations
                         new
                         {
                             ID = 1,
-                            CreateDate = new DateTime(2022, 9, 12, 10, 38, 27, 473, DateTimeKind.Local).AddTicks(9029),
+                            CreateDate = new DateTime(2022, 9, 12, 18, 16, 17, 551, DateTimeKind.Local).AddTicks(4648),
                             FullName = "Administrador do Sistema",
-                            LastUpdatePasswordDate = new DateTime(2022, 9, 12, 10, 38, 27, 473, DateTimeKind.Local).AddTicks(9036),
+                            IsAproved = true,
+                            LastUpdatePasswordDate = new DateTime(2022, 9, 12, 18, 16, 17, 551, DateTimeKind.Local).AddTicks(4655),
                             Mail = "andersonandi_t@hotmail.com",
                             Password = "123",
                             UserName = "admin"

@@ -29,15 +29,15 @@ export class AuthService {
     }
 
     get hasCanManageObjectsRole(): boolean {
-        return this.token.role.includes(RoleNameCanManageObjects);
+        return this.token.role?.includes(RoleNameCanManageObjects);
     }
 
     get hasCanManageSystemUsersRole(): boolean {
-        return this.token.role.includes(RoleNameCanManageSystemUsers);
+        return this.token.role?.includes(RoleNameCanManageSystemUsers);
     }
 
     get hasCanChangeGeneralSettingsRole(): boolean {
-        return this.token.role.includes(RoleNameCanChangeGeneralSettings);
+        return this.token.role?.includes(RoleNameCanChangeGeneralSettings);
     }
 
     login(command: IAuthenticationCommand): Observable<IAuthenticationModel> {

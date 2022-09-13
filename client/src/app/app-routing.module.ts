@@ -16,6 +16,10 @@ const routes: Routes = [
   {
     path: 'recovery-password',
     loadChildren: () => import('./features/recovery-pass/recovery-pass.module').then(x => x.RecoveryPassModule),
+  }, 
+  {
+    path: 'register',
+    loadChildren: () => import('./features/register/register.module').then(x => x.RegisterModule),
   },
   {
     path: 'users',
@@ -41,6 +45,15 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     data: {
       title: 'Minha conta'
+    },
+    resolve: [HeaderResolveService]
+  },
+  {
+    path: 'system-users',
+    loadChildren: () => import('./features/system-user/system-user.module').then(x => x.SystemUserModule),
+    canActivate: [AuthGuardService],
+    data: {
+      title: 'Usuários do sistema'
     },
     resolve: [HeaderResolveService]
   },

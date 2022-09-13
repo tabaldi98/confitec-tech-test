@@ -1,4 +1,5 @@
-﻿using Confitec.Technical.Test.Application.UserModule.UserRetrieve;
+﻿using Confitec.Technical.Test.Application.SystemUserModule.RetrieveOData;
+using Confitec.Technical.Test.Application.UserModule.UserRetrieve;
 using Microsoft.AspNetCore.OData;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
@@ -27,6 +28,7 @@ namespace Confitec.Technical.Test.Api.Extensions
             var builder = new ODataConventionModelBuilder();
 
             builder.EntitySet<UserRetrieveODataModel>("UsersOData").EntityType.HasKey(p => p.ID);
+            builder.EntitySet<SystemUserRetrieveODataModel>("SystemUsersOData").EntityType.HasKey(p => p.ID);
 
             builder.EnableLowerCamelCase();
 

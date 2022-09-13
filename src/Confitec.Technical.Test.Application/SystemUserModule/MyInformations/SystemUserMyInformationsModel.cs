@@ -9,6 +9,7 @@
         public DateTime CreateDate { get; set; }
         public DateTime? LastLoginDate { get; set; }
         public DateTime? LastUpdatePasswordDate { get; set; }
+        public bool IsAproved { get; set; }
         public IEnumerable<string> Permissions { get; set; }
     }
 }

@@ -13,12 +13,12 @@ import { LocalStorageService } from 'src/app/core/local-storage/local-storage.se
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form!: FormGroup;
-  isLoading: boolean = false;
-  hasErrorOnLogin: boolean = false;
+  public form!: FormGroup;
+  public isLoading: boolean = false;
+  public hasErrorOnLogin: boolean = false;
 
   constructor(
-    public authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private localStorage: LocalStorageService) { }
 
@@ -50,9 +50,5 @@ export class LoginComponent implements OnInit {
           this.hasErrorOnLogin = true;
         }
       )
-  }
-
-  onRecoveryPass(): void {
-    this.router.navigate(['/recovery-password']);
   }
 }

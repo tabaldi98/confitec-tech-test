@@ -29,4 +29,5 @@ export enum GridColumnType {
     Enum = 3,
     Action = 4,
     Number = 5,
+    BooleanWithIcon = 6,
 }

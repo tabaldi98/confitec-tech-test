@@ -8,7 +8,7 @@ namespace Confitec.Technical.Test.Infra.Crosscutting.RabbitMq
     public interface IRabbitMqConnector : IDisposable
     {
         IModel Channel { get; }
-        void SendMessage(object message);
+        void PublishMessage(object message, string exchange, string routingKey);
     }
 
     public class RabbitMqConnector : IRabbitMqConnector
@@ -20,23 +20,32 @@ namespace Confitec.Technical.Test.Infra.Crosscutting.RabbitMq
         public RabbitMqConnector(IConfiguration configuration)
         {
             _configuration = configuration;
-
             var factory = new ConnectionFactory()
             {
-                Uri = new Uri(_configuration.GetConnectionString("RabbitMq")),
+                HostName = _configuration.GetSection("RabbitMq").GetValue<string>("HostName"),
+                Port = _configuration.GetSection("RabbitMq").GetValue<int>("Port"),
+                UserName = _configuration.GetSection("RabbitMq").GetValue<string>("UserName"),
+                Password = _configuration.GetSection("RabbitMq").GetValue<string>("Password"),
             };
             Channel = factory.CreateConnection().CreateModel();
-            Channel.ExchangeDeclare("mail", ExchangeType.Topic);
-            Channel.QueueDeclare("mail.send", false, false, false, null);
-            Channel.QueueBind("mail.send", "mail", "mail", null);
+
+            // Recovery password
+            Channel.ExchangeDeclare(RabbitMqConstants.EXCHANGE_MAIL_RECOVERY, ExchangeType.Topic);
+            Channel.QueueDeclare(RabbitMqConstants.QUEUE_MAIL_RECOVERY, false, false, false, null);
+            Channel.QueueBind(RabbitMqConstants.QUEUE_MAIL_RECOVERY, RabbitMqConstants.EXCHANGE_MAIL_RECOVERY, RabbitMqConstants.ROUTING_KEY_MAIL_RECOVERY, null);
+
+            // System user created
+            Channel.ExchangeDeclare(RabbitMqConstants.EXCHANGE_SYSTEM_USER_CREATED, ExchangeType.Topic);
+            Channel.QueueDeclare(RabbitMqConstants.QUEUE_SYSTEM_USER_CREATED, false, false, false, null);
+            Channel.QueueBind(RabbitMqConstants.QUEUE_SYSTEM_USER_CREATED, RabbitMqConstants.EXCHANGE_SYSTEM_USER_CREATED, RabbitMqConstants.ROUTING_KEY_SYSTEM_USER_CREATE, null);
         }
 
-        public void SendMessage(object message)
+        public void PublishMessage(object message, string exchange, string routingKey)
         {
             var json = JsonConvert.SerializeObject(message);
             var body = Encoding.UTF8.GetBytes(json);
 
-            Channel.BasicPublish(exchange: "mail", routingKey: "mail", body: body);
+            Channel.BasicPublish(exchange, routingKey, body: body);
         }
 
         public void Dispose()
@@ -44,6 +53,5 @@ namespace Confitec.Technical.Test.Infra.Crosscutting.RabbitMq
             Channel.Close();
             Channel.Dispose();
         }
-
     }
 }

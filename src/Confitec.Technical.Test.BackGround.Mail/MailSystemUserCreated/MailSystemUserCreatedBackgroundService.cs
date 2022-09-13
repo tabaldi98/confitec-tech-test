@@ -6,14 +6,14 @@ using System.Text;
 using RabbitMQ.Client;
 using Confitec.Technical.Test.Infra.Crosscutting.Mail;
 
-namespace Confitec.Technical.Test.BackGround.Mail
+namespace Confitec.Technical.Test.BackGround.Mail.MailSystemUserCreated
 {
-    public class MailSenderBackgroundService : BackgroundService
+    public class MailSystemUserCreatedBackgroundService : BackgroundService
     {
         private readonly IRabbitMqConnector _rabbitMqConnector;
         private readonly IMailSender _mailSender;
 
-        public MailSenderBackgroundService(
+        public MailSystemUserCreatedBackgroundService(
             IRabbitMqConnector rabbitMqConnector,
             IMailSender mailSender)
         {
@@ -29,7 +29,7 @@ namespace Confitec.Technical.Test.BackGround.Mail
             {
                 var message = JsonConvert.DeserializeObject<MailModel>(Encoding.Default.GetString(eventArgs.Body.ToArray()));
 
-                var isSucess = await _mailSender.SendRecoveryPasswordAsync(message.Mail, message.FullName, message.Code);
+                var isSucess = await _mailSender.SendAsync(message.AdminMail, message.AdminFullName, "Aviso de usuário criado", TextTemplate(message), HtmlTemplate(message));
 
                 if (isSucess)
                 {
@@ -42,11 +42,29 @@ namespace Confitec.Technical.Test.BackGround.Mail
             };
 
             _rabbitMqConnector.Channel.BasicConsume(
-                queue: "mail.send",
+                queue: RabbitMqConstants.QUEUE_SYSTEM_USER_CREATED,
                 consumer: consumer,
-                consumerTag: "mail-consumer-" + Environment.MachineName);
+                consumerTag: "mail-user-consumer-" + Environment.MachineName);
 
             return Task.CompletedTask;
+        }
+
+        private string HtmlTemplate(MailModel mailModel)
+        {
+            return @$"
+                    <p>Olá <strong>{mailModel.AdminFullName}.</strong></p>
+                    <p>Foi criado o usuário <strong>{mailModel.UserNameCreated}</strong> com os seguintes dados:</p>
+                    <p>Nome completo <strong>{mailModel.UserFullNameCreated}</strong></p>
+                    <p>E-mail <strong>{mailModel.UserMailCreated}</strong></p>";
+        }
+
+        private string TextTemplate(MailModel mailModel)
+        {
+            return @$"
+                    Olá {mailModel.AdminFullName}.
+                    Foi criado o usuário <strong>{mailModel.UserNameCreated} com os seguintes dados:
+                    Nome completo {mailModel.UserFullNameCreated}
+                    E-mail {mailModel.UserMailCreated}";
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)

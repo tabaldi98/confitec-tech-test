@@ -33,14 +33,14 @@ namespace Confitec.Technical.Test.Application.SystemUserModule.RecoveryPassword
                 await _recoveryPasswordRepository.CreateAsync(recovery);
             }
 
-            _rabbitMqConnector.SendMessage(new
+            _rabbitMqConnector.PublishMessage(new
             {
-               ID = systemUser.ID,
-               UserName = systemUser.UserName,
-               FullName = systemUser.FullName,
-               Mail = systemUser.Mail,
-               Code = recovery.Code,
-            });
+                ID = systemUser.ID,
+                UserName = systemUser.UserName,
+                FullName = systemUser.FullName,
+                Mail = systemUser.Mail,
+                Code = recovery.Code,
+            }, RabbitMqConstants.EXCHANGE_MAIL_RECOVERY, RabbitMqConstants.ROUTING_KEY_MAIL_RECOVERY);
 
             return true;
         }

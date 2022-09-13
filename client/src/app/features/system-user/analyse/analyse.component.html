@@ -1,0 +1,75 @@
+<app-header-back title="Analisar usuário do sistema"></app-header-back>
+
+<form *ngIf="form" [formGroup]="form" class="form">
+
+    <table class="table" cellspacing="0">
+        <tr>
+            <td>
+                <div class="table">
+                    <div>Login</div>
+                    <div><strong>{{user.userName}}</strong></div>
+                </div>
+            </td>
+            <td>
+                <div class="table">
+                    <div>Nome completo</div>
+                    <div><strong>{{user.fullName}}</strong></div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="table">
+                    <div>E-mail</div>
+                    <div><strong>{{user.mail}}</strong></div>
+                </div>
+            </td>
+            <td>
+                <div class="table">
+                    <div>Data de criação</div>
+                    <div><strong>{{user.createDate | date:'short'}}</strong></div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="table">
+                    <div>Permissões</div>
+                    <mat-checkbox color="primary" formControlName="canManageObjects">Gerenciar objetos</mat-checkbox>
+                </div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div class="table">
+                    <mat-checkbox color="primary" formControlName="canManageSystemUsers">Gerenciar usuários do sistema</mat-checkbox>
+                </div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <div class="table">
+                    <mat-checkbox color="primary" formControlName="canManageSystemSettings">Gerenciar configurações gerais</mat-checkbox>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="table">
+                    <div>Situação</div>
+                    <mat-slide-toggle color="primary" formControlName="aproved">
+                        {{form.get('aproved')?.value ? 'Habilitado': 'Desabilitado'}}</mat-slide-toggle>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+
+    <app-save-buttons [form]="form" (onSaveClick)="onSave()" [disabledSaveBtn]="!form.dirty">
+    </app-save-buttons>
+</form>

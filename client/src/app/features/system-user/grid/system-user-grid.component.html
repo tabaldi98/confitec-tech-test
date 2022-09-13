@@ -1,0 +1,4 @@
+<mat-spinner *ngIf="isLoading" class="spinner-centered"></mat-spinner>
+
+<app-grid *ngIf="gridConfig" router="SystemUsersOData" [config]="gridConfig" (onAllRowsChecked)="onAllRowsChecked($event)"
+  (onRowChecked)="onRowChecked($event)"></app-grid>
